@@ -22,6 +22,8 @@ import org.bukkit.entity.Player;
 import software.bigbade.enchantmenttokens.currency.CurrencyHandler;
 import software.bigbade.enchantmenttokens.gui.EnchantmentGUI;
 
+import java.util.Locale;
+
 public interface EnchantmentPlayer {
     void save(boolean async);
 
@@ -48,4 +50,8 @@ public interface EnchantmentPlayer {
     void setCurrentGUI(EnchantmentGUI currentGUI);
 
     void setHandler(CurrencyHandler handler);
+
+    Locale getLanguage();
+
+    void setLanguage(Locale language);
 }

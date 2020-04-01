@@ -28,6 +28,7 @@ import software.bigbade.enchantmenttokens.localization.LocaleManager;
 import software.bigbade.enchantmenttokens.localization.TranslatedStringMessage;
 
 import java.util.Collections;
+import java.util.Locale;
 
 import static org.powermock.api.mockito.PowerMockito.mock;
 import static org.powermock.api.mockito.PowerMockito.when;
@@ -40,7 +41,8 @@ public class TranslateTest {
         ConfigurationSection section = mock(ConfigurationSection.class);
         when(section.get("country-language")).thenReturn("US");
 
+
         LocaleManager.updateLocale(section, Collections.emptyList());
-        Assert.assertEquals("Test", new TranslatedStringMessage("test").translate());
+        Assert.assertEquals("Test", new TranslatedStringMessage(Locale.US, "test").translate());
     }
 }

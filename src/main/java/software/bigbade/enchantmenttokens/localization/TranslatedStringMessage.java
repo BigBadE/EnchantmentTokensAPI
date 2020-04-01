@@ -21,14 +21,15 @@ package software.bigbade.enchantmenttokens.localization;
 import org.bukkit.ChatColor;
 import software.bigbade.enchantmenttokens.EnchantmentTokens;
 
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class TranslatedStringMessage implements ITranslatedMessage {
     private String message;
 
     //Private constructor to hide implicit public one.
-    public TranslatedStringMessage(String namespace, String key) {
-        ResourceBundle bundle = LocaleManager.getBundle(namespace);
+    public TranslatedStringMessage(String namespace, Locale locale, String key) {
+        ResourceBundle bundle = LocaleManager.getBundle(locale, namespace);
         if (bundle != null) {
             message = ChatColor.translateAlternateColorCodes('&', bundle.getString(key));
         } else {
@@ -36,8 +37,8 @@ public class TranslatedStringMessage implements ITranslatedMessage {
         }
     }
 
-    public TranslatedStringMessage(String key) {
-        this(EnchantmentTokens.NAME, key);
+    public TranslatedStringMessage(Locale locale, String key) {
+        this(EnchantmentTokens.NAME, locale, key);
     }
 
     @Override

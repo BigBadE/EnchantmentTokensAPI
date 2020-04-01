@@ -35,15 +35,18 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.logging.Logger;
 
-public class CustomEnchantmentAddon implements EnchantmentAddon {
+public abstract class CustomEnchantmentAddon implements EnchantmentAddon {
     private File folder;
     private PluginDescriptionFile pluginFile;
+
+    private AddonLogger logger;
 
     private static final String NOT_USED = "This method should NOT be called by Addons, check the developer guide for proper use!";
 
     public final void setup(EnchantmentTokens main, PluginDescriptionFile file) {
         folder = main.getEnchantmentFolder();
         pluginFile = file;
+        logger = new AddonLogger(this);
     }
 
     @Override
@@ -141,7 +144,7 @@ public class CustomEnchantmentAddon implements EnchantmentAddon {
     @Nonnull
     @Override
     public Logger getLogger() {
-        return EnchantmentTokens.getEnchantLogger();
+        return logger;
     }
 
     @Nonnull

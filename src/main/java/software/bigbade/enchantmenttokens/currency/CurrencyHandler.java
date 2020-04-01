@@ -20,6 +20,8 @@ package software.bigbade.enchantmenttokens.currency;
 
 import org.bukkit.entity.Player;
 
+import java.util.Locale;
+
 public interface CurrencyHandler {
     long getAmount();
 
@@ -28,6 +30,10 @@ public interface CurrencyHandler {
     void addAmount(long amount);
 
     void savePlayer(Player player, boolean async);
+
+    Locale getLocale();
+
+    void setLocale(Locale language);
 
     String name();
 }

@@ -18,9 +18,14 @@
 
 package software.bigbade.enchantmenttokens;
 
+import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import software.bigbade.enchantmenttokens.currency.CurrencyFactory;
+import software.bigbade.enchantmenttokens.gui.EnchantButton;
 import software.bigbade.enchantmenttokens.gui.MenuFactory;
+import software.bigbade.enchantmenttokens.utils.CustomEnchantButton;
+import software.bigbade.enchantmenttokens.utils.ItemUtils;
 import software.bigbade.enchantmenttokens.utils.SchedulerHandler;
 import software.bigbade.enchantmenttokens.utils.SignHandler;
 import software.bigbade.enchantmenttokens.utils.enchants.EnchantUtils;
@@ -33,8 +38,11 @@ import java.util.logging.Logger;
 
 public abstract class EnchantmentTokens extends JavaPlugin {
     //Name used for NamespacedKey namespaces
+    @SuppressWarnings("SpellCheckingInspection")
     public static final String NAME = "enchantmenttokens";
 
+    private static final ItemStack glassPane = ItemUtils.createItem(Material.BLACK_STAINED_GLASS_PANE, "");
+    public static final EnchantButton EMPTY_BUTTON = new CustomEnchantButton(glassPane, null);
     private static Logger logger;
 
     public abstract void unregisterEnchants();

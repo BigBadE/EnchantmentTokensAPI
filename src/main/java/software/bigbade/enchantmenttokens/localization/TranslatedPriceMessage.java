@@ -21,22 +21,39 @@ package software.bigbade.enchantmenttokens.localization;
 import software.bigbade.enchantmenttokens.api.StringUtils;
 import software.bigbade.enchantmenttokens.utils.currency.CurrencyAdditionHandler;
 
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+
 public final class TranslatedPriceMessage implements ITranslatedMessage {
-    private static final TranslatedStringMessage PRICE = getPriceMessage();
+    private static final Map<Locale, ITranslatedMessage> PRICES = getPriceMessages();
+
+    private Locale locale;
 
     @Override
     public String translate(String... args) {
-        if (args.length != 1)
+        if (args.length != 2)
             return "INCORRECT ARGUMENTS";
-        return PRICE.translate(args);
+        return PRICES.get(locale).translate(args);
+    }
+    public TranslatedPriceMessage(Locale locale) {
+        this.locale = locale;
     }
 
-    private static TranslatedStringMessage getPriceMessage() {
+    private static Map<Locale, ITranslatedMessage> getPriceMessages() {
         if (CurrencyAdditionHandler.isUsingGems())
-            return StringUtils.GEMS_SYMBOL;
+            return loadLocales(StringUtils.GEMS_SYMBOL);
         else if (CurrencyAdditionHandler.isUsingExperience())
-            return StringUtils.LEVELS;
+            return loadLocales(StringUtils.LEVELS);
         else
-            return StringUtils.DOLLAR_SYMBOL;
+            return loadLocales(StringUtils.DOLLAR_SYMBOL);
+    }
+
+    private static Map<Locale, ITranslatedMessage> loadLocales(String message) {
+        Map<Locale, ITranslatedMessage> locales = new HashMap<>();
+        for(Locale locale : LocaleManager.getSupportedLocales()) {
+            locales.put(locale, new TranslatedStringMessage(locale, message));
+        }
+        return locales;
     }
 }

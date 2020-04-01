@@ -20,8 +20,10 @@ package software.bigbade.enchantmenttokens.utils.currency;
 
 import software.bigbade.enchantmenttokens.api.EnchantmentPlayer;
 import software.bigbade.enchantmenttokens.api.StringUtils;
-import software.bigbade.enchantmenttokens.localization.LocaleManager;
 import software.bigbade.enchantmenttokens.localization.TranslatedPriceMessage;
+import software.bigbade.enchantmenttokens.localization.TranslatedStringMessage;
+
+import java.util.Locale;
 
 public final class CurrencyAdditionHandler {
     private static Boolean usingGems;
@@ -37,14 +39,14 @@ public final class CurrencyAdditionHandler {
         CurrencyAdditionHandler.usingXp = usingXp;
     }
 
-    public static String formatMoney(long amount) {
-        String priceStr = new TranslatedPriceMessage().translate("%,d");
-        return String.format(LocaleManager.getLocale(), priceStr, amount);
+    public static String formatMoney(Locale locale, long amount) {
+        String priceStr = new TranslatedPriceMessage(locale).translate("%,d");
+        return String.format(Locale.getDefault(), priceStr, amount);
     }
 
     public static void addGems(EnchantmentPlayer player, long amount) {
         player.addGems(amount);
-        player.getPlayer().sendMessage(StringUtils.COMMAND_ADD.translate(formatMoney(amount)));
+        player.getPlayer().sendMessage(new TranslatedStringMessage(player.getLanguage(), StringUtils.COMMAND_ADD).translate(formatMoney(player.getLanguage(), amount)));
     }
 
     public static boolean isUsingGems() {

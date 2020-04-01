@@ -32,7 +32,7 @@ import java.util.Set;
 public interface ListenerHandler {
     void registerListeners();
 
-    void loadAddons(Collection<Plugin> addons);
+    void loadAddons(Collection<EnchantmentAddon> addons);
 
     void onEnchant(ItemStack item, EnchantmentBase base, Player player);
 

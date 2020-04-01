@@ -19,12 +19,13 @@
 package software.bigbade.enchantmenttokens.gui;
 
 import org.bukkit.inventory.ItemStack;
+import software.bigbade.enchantmenttokens.api.CustomEnchantment;
 import software.bigbade.enchantmenttokens.api.EnchantmentPlayer;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public interface EnchantButton {
+public interface EnchantButton extends Cloneable {
     /**
      * Called on item click
      * @param player The player who clicked
@@ -35,4 +36,8 @@ public interface EnchantButton {
 
     @Nonnull
     ItemStack getItem();
+
+    void setItem(ItemStack item);
+
+    EnchantButton clone();
 }
