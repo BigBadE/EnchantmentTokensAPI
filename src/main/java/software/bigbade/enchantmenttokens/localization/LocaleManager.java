@@ -41,7 +41,7 @@ public class LocaleManager {
     private static Map<Locale, List<AddonResourceBundle>> bundles = new HashMap<>();
 
     @Getter
-    private static final Locale[] supportedLocales = new Locale[]{Locale.US};
+    private static final Locale[] supportedLocales = new Locale[]{Locale.US, Locale.UK};
 
     private LocaleManager() {
     }
@@ -50,12 +50,18 @@ public class LocaleManager {
         getLocale(section);
 
         try {
-            for (Locale locale : supportedLocales)
-                createOrAddLocale(locale, new AddonResourceBundle(EnchantmentTokens.NAME, new PropertyResourceBundle(getStream(EnchantmentTokens.NAME, locale))));
+            for (Locale locale : supportedLocales) {
+                InputStream stream = getStream(EnchantmentTokens.NAME, locale);
+                if (stream != null)
+                    createOrAddLocale(locale, new AddonResourceBundle(EnchantmentTokens.NAME, new PropertyResourceBundle(stream)));
+            }
 
             for (EnchantmentAddon addon : addons) {
-                for (Locale locale : addon.supportedLocales())
-                    createOrAddLocale(locale, new AddonResourceBundle(addon.getName(), new PropertyResourceBundle(getStream(addon.getName(), locale))));
+                for (Locale locale : addon.supportedLocales()) {
+                    InputStream stream = getStream(addon.getName(), locale);
+                    if (stream != null)
+                        createOrAddLocale(locale, new AddonResourceBundle(addon.getName(), new PropertyResourceBundle(stream)));
+                }
             }
         } catch (IOException e) {
             EnchantmentTokens.getEnchantLogger().log(Level.SEVERE, "Could not load Localization files.", e);
@@ -64,7 +70,7 @@ public class LocaleManager {
 
     private static void createOrAddLocale(Locale locale, AddonResourceBundle bundle) {
         List<AddonResourceBundle> found = bundles.get(locale);
-        if(found == null) {
+        if (found == null) {
             found = new ArrayList<>();
             found.add(bundle);
             bundles.put(locale, found);
@@ -94,8 +100,8 @@ public class LocaleManager {
 
     @Nullable
     public static ResourceBundle getBundle(Locale locale, String namespace) {
-        for(AddonResourceBundle bundle : bundles.get(locale)) {
-            if(bundle.getAddon().equals(namespace))
+        for (AddonResourceBundle bundle : bundles.get(locale)) {
+            if (bundle.getAddon().equals(namespace))
                 return bundle.getBundle();
         }
         return (locale == Locale.US) ? getBundle(Locale.US, EnchantmentTokens.NAME) : getBundle(Locale.US, namespace);

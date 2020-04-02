@@ -41,7 +41,7 @@ public abstract class EnchantmentTokens extends JavaPlugin {
     @SuppressWarnings("SpellCheckingInspection")
     public static final String NAME = "enchantmenttokens";
 
-    private static final ItemStack glassPane = ItemUtils.createItem(Material.BLACK_STAINED_GLASS_PANE, "");
+    private static final ItemStack glassPane = ItemUtils.createItem(Material.BLACK_STAINED_GLASS_PANE, " ");
     public static final EnchantButton EMPTY_BUTTON = new CustomEnchantButton(glassPane, null);
     private static Logger logger;
 

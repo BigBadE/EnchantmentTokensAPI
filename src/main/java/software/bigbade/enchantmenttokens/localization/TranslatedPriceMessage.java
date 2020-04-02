@@ -32,7 +32,7 @@ public final class TranslatedPriceMessage implements ITranslatedMessage {
 
     @Override
     public String translate(String... args) {
-        if (args.length != 2)
+        if (args.length != 1)
             return "INCORRECT ARGUMENTS";
         return PRICES.get(locale).translate(args);
     }

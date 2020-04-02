@@ -113,7 +113,7 @@ public class ConfigurationManager {
             target = null;
         }
         ConfigurationField annotation = field.getAnnotation(ConfigurationField.class);
-        String location = annotation.location() + "." + field.getName();
+        String location = annotation.location() + "." + ((annotation.name().equals("")) ? field.getName() : annotation.name());
         if (field.getType().equals(ConfigurationSection.class)) {
             ConfigurationSection newSection = section.getConfigurationSection(location);
             if (newSection == null)
@@ -125,8 +125,7 @@ public class ConfigurationManager {
                 ReflectionManager.setValue(field, value, target);
                 return;
             }
-            String name = (annotation.name().equals("")) ? location : annotation.name();
-            section.set(name, ReflectionManager.getValue(field, target));
+            section.set(location, ReflectionManager.getValue(field, target));
         }
     }
 
