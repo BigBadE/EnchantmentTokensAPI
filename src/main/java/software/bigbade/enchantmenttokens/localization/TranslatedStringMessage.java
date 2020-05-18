@@ -23,17 +23,24 @@ import software.bigbade.enchantmenttokens.EnchantmentTokens;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 
 public class TranslatedStringMessage implements ITranslatedMessage {
-    private String message;
+    private final String message;
 
-    //Private constructor to hide implicit public one.
+    private static final Pattern REPLACE_PLACEHOLDERS = Pattern.compile("%s");
+
     public TranslatedStringMessage(String namespace, Locale locale, String key) {
         ResourceBundle bundle = LocaleManager.getBundle(locale, namespace);
         if (bundle != null) {
             message = ChatColor.translateAlternateColorCodes('&', bundle.getString(key));
         } else {
-            message = "NO BUNDLE FOUND";
+            bundle = LocaleManager.getBundle(Locale.US, namespace);
+            if (bundle != null) {
+                message = ChatColor.translateAlternateColorCodes('&', bundle.getString(key));
+            } else {
+                message = "NO NAMESPACE FOUND";
+            }
         }
     }
 
@@ -45,7 +52,7 @@ public class TranslatedStringMessage implements ITranslatedMessage {
     public String translate(String... args) {
         String text = message;
         for (String argument : args) {
-            text = text.replaceFirst("%s", argument.replace("$", "\\$"));
+            text = REPLACE_PLACEHOLDERS.matcher(text).replaceFirst(argument.replace("$", "\\$"));
         }
         return text;
     }

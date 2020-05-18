@@ -22,8 +22,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>software.bigbade.enchantmenttokens</groupId>
-    <artifactId>EnchantmentTokensPublic</artifactId>
+    <groupId>software.bigbade</groupId>
+    <artifactId>EnchantmentTokensAPI</artifactId>
     <version>1.0</version>
 
     <properties>
@@ -40,12 +40,27 @@
         </repository>
     </repositories>
 
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub BigBadE Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/BigBadE/EnchantmentTokensPublic</url>
+        </repository>
+    </distributionManagement>
+
     <dependencies>
         <!--Spigot-->
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
             <version>1.15.2-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+        <!--Provides the armor equip event-->
+        <dependency>
+            <groupId>com.codingforcookies</groupId>
+            <artifactId>ArmorEquipEvent</artifactId>
+            <version>1.7.3</version>
             <scope>provided</scope>
         </dependency>
         <!--All the testing APIs used for Unit Tests-->

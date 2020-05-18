@@ -46,8 +46,8 @@ public abstract class EnchantUtils {
 
     public abstract int getNextLevel(ItemStack item, EnchantmentBase enchantment);
 
-    static void setInstance(EnchantUtils instance)  {
-        if(instance == null)
+    static void setInstance(EnchantUtils instance) {
+        if (instance == null)
             throw new IllegalStateException("Instance already set!");
         EnchantUtils.instance = instance;
     }
@@ -55,4 +55,6 @@ public abstract class EnchantUtils {
     public static EnchantUtils getInstance() {
         return EnchantUtils.instance;
     }
+
+    public abstract void triggerOnEnchant(ItemStack item, EnchantmentBase base, Player player);
 }

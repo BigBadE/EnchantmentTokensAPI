@@ -30,6 +30,7 @@ import software.bigbade.enchantmenttokens.EnchantmentTokens;
 import software.bigbade.enchantmenttokens.api.wrappers.EnchantmentConflictWrapper;
 import software.bigbade.enchantmenttokens.api.wrappers.IConflictWrapper;
 import software.bigbade.enchantmenttokens.api.wrappers.ITargetWrapper;
+import software.bigbade.enchantmenttokens.utils.enchants.EnchantUtils;
 
 import javax.annotation.Nonnull;
 import java.util.logging.Level;
@@ -38,7 +39,7 @@ public class CustomEnchantment extends Enchantment implements EnchantmentBase {
     @Getter
     @Setter
     private ITargetWrapper target;
-    private IConflictWrapper conflicts = new EnchantmentConflictWrapper();
+    private final IConflictWrapper conflicts = new EnchantmentConflictWrapper();
     @Setter
     private boolean treasure = false;
     @Setter
@@ -48,7 +49,7 @@ public class CustomEnchantment extends Enchantment implements EnchantmentBase {
     private String name;
 
     @ConfigurationField(name = "icon")
-    private String iconString = "DEFAULT";
+    private final String iconString = "DEFAULT";
 
     @Getter
     private Material icon;
@@ -65,10 +66,10 @@ public class CustomEnchantment extends Enchantment implements EnchantmentBase {
 
     @Getter
     @ConfigurationField(name = "price")
-    private ConfigurationSection priceSection = null;
+    private final ConfigurationSection priceSection = null;
 
     @ConfigurationField(location = "price")
-    private String type = "custom";
+    private final String type = "custom";
 
     public CustomEnchantment(NamespacedKey key, Material icon, String defaultName) {
         super(key);
@@ -121,6 +122,11 @@ public class CustomEnchantment extends Enchantment implements EnchantmentBase {
     @Nonnull
     public String getEnchantmentName() {
         return name;
+    }
+
+    @Override
+    public Integer getLevel(ItemStack item) {
+        return EnchantUtils.getInstance().getNextLevel(item, this) - 1;
     }
 
     public void setEnchantName(String name) {

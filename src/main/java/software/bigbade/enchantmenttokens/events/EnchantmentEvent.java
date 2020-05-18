@@ -26,30 +26,33 @@ import org.bukkit.inventory.ItemStack;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public interface EnchantmentEvent {
+public interface EnchantmentEvent<T extends Event> {
     @Nonnull
-    EnchantmentEvent setUser(Entity user);
+    EnchantmentEvent<T> setUser(Entity user);
 
     @Nonnull
     Entity getUser();
 
     @Nonnull
-    EnchantmentEvent setItem(ItemStack item);
+    EnchantmentEvent<T> setItem(ItemStack item);
 
     @Nonnull
     ItemStack getItem();
 
     @Nonnull
-    EnchantmentEvent setTargetEntity(Entity entity);
+    EnchantmentEvent<T> setTargetEntity(Entity entity);
 
     @Nullable
     Entity getTargetEntity();
 
     @Nonnull
-    EnchantmentEvent setTargetBlock(Block block);
+    EnchantmentEvent<T> setTargetBlock(Block block);
 
     @Nullable
     Block getTargetBlock();
 
-    Event getEvent();
+    //Required because this cannot extend event
+    Event getSelfEvent();
+
+    T getEvent();
 }

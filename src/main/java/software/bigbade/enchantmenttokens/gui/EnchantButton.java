@@ -19,7 +19,6 @@
 package software.bigbade.enchantmenttokens.gui;
 
 import org.bukkit.inventory.ItemStack;
-import software.bigbade.enchantmenttokens.api.CustomEnchantment;
 import software.bigbade.enchantmenttokens.api.EnchantmentPlayer;
 
 import javax.annotation.Nonnull;
@@ -39,5 +38,6 @@ public interface EnchantButton extends Cloneable {
 
     void setItem(ItemStack item);
 
-    EnchantButton clone();
+    @Nullable
+    String getTranslationString();
 }

@@ -9,7 +9,7 @@ import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
 public class AddonLogger extends Logger {
-    private String pluginName;
+    private final String pluginName;
 
     public AddonLogger(@Nonnull Plugin addon) {
         super(addon.getClass().getCanonicalName(), null);

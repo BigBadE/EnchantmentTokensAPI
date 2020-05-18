@@ -20,7 +20,9 @@ package software.bigbade.enchantmenttokens.gui;
 
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import software.bigbade.enchantmenttokens.api.EnchantmentPlayer;
+import software.bigbade.enchantmenttokens.api.EnchantmentBase;
+
+import java.util.List;
 
 public interface EnchantmentGUI {
     Inventory getInventory();
@@ -33,7 +35,7 @@ public interface EnchantmentGUI {
 
     void setItem(ItemStack item);
 
-    EnchantmentPlayer getOpener();
+    List<EnchantmentBase> getAddedEnchants();
 
-    void setOpener(EnchantmentPlayer opener);
+    void addEnchantment(EnchantmentBase base);
 }

@@ -57,4 +57,6 @@ public interface EnchantmentBase {
 
     @Nonnull
     String getEnchantmentName();
+
+    Integer getLevel(ItemStack item);
 }

@@ -20,6 +20,7 @@ package software.bigbade.enchantmenttokens.gui;
 
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import software.bigbade.enchantmenttokens.api.EnchantmentBase;
 import software.bigbade.enchantmenttokens.api.EnchantmentPlayer;
 
 import java.util.List;
@@ -29,7 +30,7 @@ public interface MenuFactory {
     EnchantmentGUI genInventory(Player player);
 
     //Generate enchantment inventory with specified item.
-    EnchantmentGUI genItemInventory(EnchantmentPlayer enchantPlayer, ItemStack item);
+    EnchantmentGUI genItemInventory(EnchantmentPlayer enchantPlayer, ItemStack item, List<EnchantmentBase> enchantments);
 
     void addButtons(List<EnchantButton> button);
 }

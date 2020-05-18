@@ -18,13 +18,14 @@
 
 package software.bigbade.enchantmenttokens;
 
+import lombok.Getter;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import software.bigbade.enchantmenttokens.currency.CurrencyFactory;
 import software.bigbade.enchantmenttokens.gui.EnchantButton;
 import software.bigbade.enchantmenttokens.gui.MenuFactory;
-import software.bigbade.enchantmenttokens.utils.CustomEnchantButton;
+import software.bigbade.enchantmenttokens.utils.ButtonFactory;
 import software.bigbade.enchantmenttokens.utils.ItemUtils;
 import software.bigbade.enchantmenttokens.utils.SchedulerHandler;
 import software.bigbade.enchantmenttokens.utils.SignHandler;
@@ -42,7 +43,10 @@ public abstract class EnchantmentTokens extends JavaPlugin {
     public static final String NAME = "enchantmenttokens";
 
     private static final ItemStack glassPane = ItemUtils.createItem(Material.BLACK_STAINED_GLASS_PANE, " ");
-    public static final EnchantButton EMPTY_BUTTON = new CustomEnchantButton(glassPane, null);
+
+    @Getter
+    private static EnchantButton emptyButton;
+
     private static Logger logger;
 
     public abstract void unregisterEnchants();
@@ -80,4 +84,12 @@ public abstract class EnchantmentTokens extends JavaPlugin {
     public abstract SchedulerHandler getScheduler();
 
     public abstract File getEnchantmentFolder();
+
+    //Class is loaded before the button factory is instanced, so this must be set manually
+    public static void setup() {
+        if (emptyButton != null) {
+            throw new IllegalStateException("Cannot setup an already-setup EnchantmentTokens!");
+        }
+        emptyButton = ButtonFactory.getInstance().createButton(glassPane, null);
+    }
 }

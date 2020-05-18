@@ -18,8 +18,6 @@
 
 package software.bigbade.enchantmenttokens.localization;
 
-import java.util.Locale;
-
 public interface ITranslatedMessage {
     String translate(String... args);
 }

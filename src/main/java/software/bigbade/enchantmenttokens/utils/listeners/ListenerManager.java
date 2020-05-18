@@ -18,31 +18,35 @@
 
 package software.bigbade.enchantmenttokens.utils.listeners;
 
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.event.Event;
 import software.bigbade.enchantmenttokens.api.EnchantmentBase;
 import software.bigbade.enchantmenttokens.events.EnchantmentEvent;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class ListenerManager {
-    private Map<EnchantmentBase, EnchantmentListener<EnchantmentEvent>> listeners = new HashMap<>();
+public class ListenerManager<T extends Event> {
+    private final Map<Enchantment, EnchantmentListener<EnchantmentEvent<? extends Event>>> listeners = new HashMap<>();
 
-    public void add(EnchantmentListener<EnchantmentEvent> listener, EnchantmentBase base) {
+    public void add(EnchantmentListener<EnchantmentEvent<? extends Event>> listener, Enchantment base) {
         listeners.put(base, listener);
     }
 
-    public Map<EnchantmentBase, EnchantmentListener<EnchantmentEvent>> getListeners() {
+    public Map<Enchantment, EnchantmentListener<EnchantmentEvent<? extends Event>>> getListeners() {
         return listeners;
     }
 
-    public void callEvent(EnchantmentEvent event, EnchantmentBase base) {
+    public void callEvent(EnchantmentEvent<T> event, Enchantment base) {
+        if (event.getItem().getEnchantments().isEmpty())
+            return;
         listeners.forEach((enchant, listener) -> {
             if (enchant.equals(base))
                 listener.apply(event);
         });
     }
 
-    public void callEvent(EnchantmentEvent event) {
+    public void callEvent(EnchantmentEvent<? extends Event> event) {
         event.getItem().getEnchantments().keySet().stream()
                 .filter(enchantment -> enchantment instanceof EnchantmentBase && listeners.containsKey(enchantment))
                 .forEach(enchantment -> listeners.get(enchantment).apply(event));
