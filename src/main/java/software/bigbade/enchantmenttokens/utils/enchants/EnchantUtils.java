@@ -36,7 +36,7 @@ public abstract class EnchantUtils {
     public abstract void addEnchantment(ItemStack itemStack, String name, Player player);
 
     /**
-     * Adds enchantment to item.
+     * Adds enchantment to item, with error messages
      * @param item Item to enchant
      * @param base EnchantBase to add
      * @param enchantmentPlayer player that holds the item
@@ -44,7 +44,25 @@ public abstract class EnchantUtils {
      */
     public abstract long addEnchantmentBase(ItemStack item, EnchantmentBase base, EnchantmentPlayer enchantmentPlayer);
 
-    public abstract int getNextLevel(ItemStack item, EnchantmentBase enchantment);
+
+    /**
+     * Adds enchantment to item, without error messages
+     * @param item Item to enchant
+     * @param base EnchantBase to add
+     */
+    public abstract void addEnchantmentBaseNoMessages(ItemStack item, EnchantmentBase base, Player player);
+
+    public abstract void removeEnchantmentBase(ItemStack item, EnchantmentBase base);
+
+    public abstract void addEnchantmentBase(ItemStack item, EnchantmentBase base, EnchantmentPlayer player, int level);
+
+    /**
+     * Get the level of the enchantment
+     * @param item Item with the enchant
+     * @param base The enchant
+     * @return The level
+     */
+    public abstract int getLevel(ItemStack item, EnchantmentBase base);
 
     static void setInstance(EnchantUtils instance) {
         if (instance == null)

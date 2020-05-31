@@ -18,7 +18,11 @@
 
 package software.bigbade.enchantmenttokens;
 
+import co.aikar.taskchain.BukkitTaskChainFactory;
+import co.aikar.taskchain.TaskChain;
+import co.aikar.taskchain.TaskChainFactory;
 import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -38,11 +42,9 @@ import java.io.File;
 import java.util.logging.Logger;
 
 public abstract class EnchantmentTokens extends JavaPlugin {
-    //Name used for NamespacedKey namespaces
-    @SuppressWarnings("SpellCheckingInspection")
-    public static final String NAME = "enchantmenttokens";
-
     private static final ItemStack glassPane = ItemUtils.createItem(Material.BLACK_STAINED_GLASS_PANE, " ");
+
+    public static final String NAME = "enchantmenttokens";
 
     @Getter
     private static EnchantButton emptyButton;
@@ -73,8 +75,6 @@ public abstract class EnchantmentTokens extends JavaPlugin {
 
     public abstract CurrencyFactory getCurrencyHandler();
 
-    public abstract int getVersion();
-
     public abstract SignHandler getSignHandler();
 
     public abstract EnchantUtils getUtils();
@@ -84,6 +84,15 @@ public abstract class EnchantmentTokens extends JavaPlugin {
     public abstract SchedulerHandler getScheduler();
 
     public abstract File getEnchantmentFolder();
+
+    public abstract boolean getOverridingEnchantTables();
+
+    @Setter
+    private static TaskChainFactory taskChainFactory;
+
+    public static <T> TaskChain<T> newChain() {
+        return taskChainFactory.newChain();
+    }
 
     //Class is loaded before the button factory is instanced, so this must be set manually
     public static void setup() {

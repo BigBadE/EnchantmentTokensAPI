@@ -100,10 +100,13 @@ public class LocaleManager {
 
     @Nullable
     public static ResourceBundle getBundle(Locale locale, String namespace) {
+        if(bundles.get(locale) == null) {
+            return getBundle(Locale.US, namespace);
+        }
         for (AddonResourceBundle bundle : bundles.get(locale)) {
             if (bundle.getAddon().equals(namespace))
                 return bundle.getBundle();
         }
-        return (locale == Locale.US) ? getBundle(Locale.US, EnchantmentTokens.NAME) : getBundle(Locale.US, namespace);
+        return null;
     }
 }

@@ -18,6 +18,7 @@
 
 package utils;
 
+import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.junit.Assert;
 import org.junit.Test;
@@ -26,21 +27,25 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import software.bigbade.enchantmenttokens.localization.LocaleManager;
 import software.bigbade.enchantmenttokens.localization.TranslatedStringMessage;
+import software.bigbade.enchantmenttokens.utils.ItemUtils;
 
 import java.util.Collections;
 import java.util.Locale;
 
 import static org.powermock.api.mockito.PowerMockito.mock;
+import static org.powermock.api.mockito.PowerMockito.mockStatic;
 import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({ LocaleManager.class, TranslatedStringMessage.class })
+@PrepareForTest({ ItemUtils.class, LocaleManager.class, TranslatedStringMessage.class })
 public class TranslateTest {
     @Test
     public void testTranslate() {
+        mockStatic(ItemUtils.class);
+        when(ItemUtils.createItem(Material.BLACK_STAINED_GLASS_PANE, " ")).thenReturn(null);
+        
         ConfigurationSection section = mock(ConfigurationSection.class);
         when(section.get("country-language")).thenReturn("US");
-
 
         LocaleManager.updateLocale(section, Collections.emptyList());
         Assert.assertEquals("Test", new TranslatedStringMessage(Locale.US, "test").translate());

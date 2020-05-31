@@ -19,6 +19,7 @@
 package software.bigbade.enchantmenttokens.api;
 
 import org.bukkit.entity.Player;
+import software.bigbade.enchantmenttokens.currency.CurrencyHandler;
 import software.bigbade.enchantmenttokens.gui.EnchantmentGUI;
 
 import java.util.Locale;
@@ -31,6 +32,8 @@ public interface EnchantmentPlayer {
     long getGems();
 
     void addGems(long amount);
+
+    void setCurrencyHandler(CurrencyHandler handler);
 
     EnchantmentGUI getCurrentGUI();
 

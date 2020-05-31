@@ -18,6 +18,10 @@
 
 package software.bigbade.enchantmenttokens.api;
 
+import software.bigbade.enchantmenttokens.localization.TranslatedStringMessage;
+
+import java.util.Locale;
+
 /**
  * StringUtils loads all localization strings of the selected language into memory.
  */
@@ -25,6 +29,7 @@ public class StringUtils {
     //Private constructor to hide implicit public one
     private StringUtils() {}
 
+    public static final String ENCHANTMENT_LINE = new TranslatedStringMessage(Locale.getDefault(), StringUtils.ENCHANTMENT).translate();
     /**
      * General messages
      */

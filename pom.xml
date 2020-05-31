@@ -38,6 +38,11 @@
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
+        <!--TaskChain-->
+        <repository>
+            <id>aikar</id>
+            <url>https://repo.aikar.co/content/groups/aikar/</url>
+        </repository>
     </repositories>
 
     <distributionManagement>
@@ -61,6 +66,13 @@
             <groupId>com.codingforcookies</groupId>
             <artifactId>ArmorEquipEvent</artifactId>
             <version>1.7.3</version>
+            <scope>provided</scope>
+        </dependency>
+        <!--TaskChain-->
+        <dependency>
+            <groupId>co.aikar</groupId>
+            <artifactId>taskchain-bukkit</artifactId>
+            <version>3.7.2</version>
             <scope>provided</scope>
         </dependency>
         <!--All the testing APIs used for Unit Tests-->

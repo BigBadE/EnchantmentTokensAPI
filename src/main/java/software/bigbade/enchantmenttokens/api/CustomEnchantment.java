@@ -30,6 +30,7 @@ import software.bigbade.enchantmenttokens.EnchantmentTokens;
 import software.bigbade.enchantmenttokens.api.wrappers.EnchantmentConflictWrapper;
 import software.bigbade.enchantmenttokens.api.wrappers.IConflictWrapper;
 import software.bigbade.enchantmenttokens.api.wrappers.ITargetWrapper;
+import software.bigbade.enchantmenttokens.utils.enchants.EnchantRarity;
 import software.bigbade.enchantmenttokens.utils.enchants.EnchantUtils;
 
 import javax.annotation.Nonnull;
@@ -49,7 +50,7 @@ public class CustomEnchantment extends Enchantment implements EnchantmentBase {
     private String name;
 
     @ConfigurationField(name = "icon")
-    private final String iconString = "DEFAULT";
+    private String iconString = "DEFAULT";
 
     @Getter
     private Material icon;
@@ -59,6 +60,11 @@ public class CustomEnchantment extends Enchantment implements EnchantmentBase {
     @ConfigurationField
     private int maxLevel = 3;
 
+
+    @Getter
+    @ConfigurationField
+    private int maxTableLevel = 3;
+
     @Getter
     @Setter
     @ConfigurationField
@@ -66,10 +72,14 @@ public class CustomEnchantment extends Enchantment implements EnchantmentBase {
 
     @Getter
     @ConfigurationField(name = "price")
-    private final ConfigurationSection priceSection = null;
+    private ConfigurationSection priceSection = null;
 
     @ConfigurationField(location = "price")
-    private final String type = "custom";
+    private String type = "custom";
+
+    @Getter
+    @ConfigurationField
+    private int rarity = 1;
 
     public CustomEnchantment(NamespacedKey key, Material icon, String defaultName) {
         super(key);
@@ -125,8 +135,13 @@ public class CustomEnchantment extends Enchantment implements EnchantmentBase {
     }
 
     @Override
+    public void setRarity(EnchantRarity rarity) {
+        this.rarity = rarity.ordinal()+1;
+    }
+
+    @Override
     public Integer getLevel(ItemStack item) {
-        return EnchantUtils.getInstance().getNextLevel(item, this) - 1;
+        return EnchantUtils.getInstance().getLevel(item, this);
     }
 
     public void setEnchantName(String name) {
@@ -157,17 +172,39 @@ public class CustomEnchantment extends Enchantment implements EnchantmentBase {
     }
 
     @Override
+    public int getMinCost(int level) {
+        return 30/getMaxLevel()*level;
+    }
+
+    @Override
+    public int getMaxCost(int level) {
+        int min = this.getMinCost(level);
+        switch(rarity) {
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+                return min + 50;
+            default:
+                return min + 5;
+        }
+    }
+
+    @Override
     public boolean isCursed() {
         return cursed;
     }
 
     @Override
     public boolean canEnchantItem(@Nonnull ItemStack itemStack) {
-        if (itemStack.getItemMeta() == null || !itemStack.getItemMeta().hasEnchants())
+        if (itemStack.getItemMeta() == null || !itemStack.getItemMeta().hasEnchants()) {
             return target.canTarget(itemStack.getType());
-        for (Enchantment enchantment : itemStack.getEnchantments().keySet())
-            if (conflicts.conflicts(enchantment))
+        }
+        for (Enchantment enchantment : itemStack.getEnchantments().keySet()) {
+            if (conflictsWith(enchantment)) {
                 return false;
+            }
+        }
         return target.canTarget(itemStack.getType());
     }
 

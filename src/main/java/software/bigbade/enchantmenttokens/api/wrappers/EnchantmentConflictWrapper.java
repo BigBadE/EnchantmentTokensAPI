@@ -30,7 +30,7 @@ public class EnchantmentConflictWrapper implements IConflictWrapper {
 
     @Override
     public boolean conflicts(Enchantment enchantment) {
-        return !conflicts.containsKey(enchantment.getKey().getNamespace()) || !conflicts.get(enchantment.getKey().getNamespace()).contains(enchantment.getKey().getKey());
+        return conflicts.containsKey(enchantment.getKey().getNamespace()) && conflicts.get(enchantment.getKey().getNamespace()).contains(enchantment.getKey().getKey());
     }
 
     @SuppressWarnings("ArraysAsListWithZeroOrOneArgument")

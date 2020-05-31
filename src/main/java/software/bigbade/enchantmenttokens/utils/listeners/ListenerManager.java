@@ -27,13 +27,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ListenerManager<T extends Event> {
-    private final Map<Enchantment, EnchantmentListener<EnchantmentEvent<? extends Event>>> listeners = new HashMap<>();
+    private final Map<Enchantment, EnchantmentListener<EnchantmentEvent<T>>> listeners = new HashMap<>();
 
-    public void add(EnchantmentListener<EnchantmentEvent<? extends Event>> listener, Enchantment base) {
+    public void add(EnchantmentListener<EnchantmentEvent<T>> listener, Enchantment base) {
         listeners.put(base, listener);
     }
 
-    public Map<Enchantment, EnchantmentListener<EnchantmentEvent<? extends Event>>> getListeners() {
+    public Map<Enchantment, EnchantmentListener<EnchantmentEvent<T>>> getListeners() {
         return listeners;
     }
 
@@ -46,7 +46,7 @@ public class ListenerManager<T extends Event> {
         });
     }
 
-    public void callEvent(EnchantmentEvent<? extends Event> event) {
+    public void callEvent(EnchantmentEvent<T> event) {
         event.getItem().getEnchantments().keySet().stream()
                 .filter(enchantment -> enchantment instanceof EnchantmentBase && listeners.containsKey(enchantment))
                 .forEach(enchantment -> listeners.get(enchantment).apply(event));

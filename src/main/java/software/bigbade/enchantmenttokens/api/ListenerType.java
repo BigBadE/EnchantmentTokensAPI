@@ -18,9 +18,11 @@
 
 package software.bigbade.enchantmenttokens.api;
 
+import lombok.RequiredArgsConstructor;
 import software.bigbade.enchantmenttokens.api.wrappers.ITargetWrapper;
 import software.bigbade.enchantmenttokens.utils.enchants.CustomEnchantmentTargets;
 
+@RequiredArgsConstructor
 public enum ListenerType {
     //On block starting hit
     BLOCK_DAMAGED(CustomEnchantmentTargets.TOOL),
@@ -36,8 +38,10 @@ public enum ListenerType {
     SWAPPED(CustomEnchantmentTargets.ALL),
     //On current enchantment applied to an item
     ENCHANT(CustomEnchantmentTargets.ALL),
-    //On user death
-    DEATH(CustomEnchantmentTargets.ALL),
+    //Before user death
+    DEATH_BEFORE(CustomEnchantmentTargets.ALL),
+    //After user death
+    DEATH_AFTER(CustomEnchantmentTargets.ALL),
     //Potion apply
     POTION_APPLY(CustomEnchantmentTargets.ALL),
     //Potion remove
@@ -63,13 +67,11 @@ public enum ListenerType {
     //Arrow hit
     ARROW_HIT(CustomEnchantmentTargets.SHOOTABLE),
     //Trident hit
-    TRIDENT_HIT(CustomEnchantmentTargets.TRIDENT);
+    TRIDENT_HIT(CustomEnchantmentTargets.TRIDENT),
+    //1.8 and below sword block
+    SWORD_BLOCK(CustomEnchantmentTargets.WEAPON);
 
     private final ITargetWrapper target;
-
-    ListenerType(ITargetWrapper target) {
-        this.target = target;
-    }
 
     public boolean canTarget(ITargetWrapper wrapper) {
         return target.canTarget(wrapper);

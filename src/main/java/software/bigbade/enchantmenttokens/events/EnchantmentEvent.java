@@ -20,6 +20,7 @@ package software.bigbade.enchantmenttokens.events;
 
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.inventory.ItemStack;
 
@@ -28,10 +29,7 @@ import javax.annotation.Nullable;
 
 public interface EnchantmentEvent<T extends Event> {
     @Nonnull
-    EnchantmentEvent<T> setUser(Entity user);
-
-    @Nonnull
-    Entity getUser();
+    Player getUser();
 
     @Nonnull
     EnchantmentEvent<T> setItem(ItemStack item);
@@ -51,8 +49,9 @@ public interface EnchantmentEvent<T extends Event> {
     @Nullable
     Block getTargetBlock();
 
-    //Required because this cannot extend event
+    //Required because this cannot extend event, just returns itself
     Event getSelfEvent();
 
+    //Returns the original event, not the wrapper
     T getEvent();
 }

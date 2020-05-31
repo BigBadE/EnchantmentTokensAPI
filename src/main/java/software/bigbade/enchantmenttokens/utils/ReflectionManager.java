@@ -18,6 +18,7 @@
 
 package software.bigbade.enchantmenttokens.utils;
 
+import org.bukkit.Bukkit;
 import software.bigbade.enchantmenttokens.EnchantmentTokens;
 
 import javax.annotation.Nonnull;
@@ -32,6 +33,9 @@ import java.util.logging.Level;
 public class ReflectionManager {
     private ReflectionManager() {}
 
+    public static final int VERSION = Integer.parseInt(Bukkit.getVersion().split("\\.")[1]);
+
+    private static final String ERROR_MESSAGE = "Version changes with enchantments, please report this and the MC version";
     @Nonnull
     public static Field getField(@Nonnull Class<?> clazz, @Nonnull String name) {
         Field field = null;
@@ -39,10 +43,35 @@ public class ReflectionManager {
             field = clazz.getDeclaredField(name);
             field.setAccessible(true);
         } catch (NoSuchFieldException e) {
-            EnchantmentTokens.getEnchantLogger().log(Level.SEVERE, "Version changes with enchantments, please report this and the MC version");
+            EnchantmentTokens.getEnchantLogger().log(Level.SEVERE, ERROR_MESSAGE);
         }
         Objects.requireNonNull(field);
         return field;
+    }
+
+    @Nonnull
+    public static Method getMethod(@Nonnull Class<?> clazz, @Nonnull String name, Class<?>... params) {
+        Method method = null;
+        try {
+            method = clazz.getDeclaredMethod(name, params);
+            method.setAccessible(true);
+        } catch (NoSuchMethodException e) {
+            EnchantmentTokens.getEnchantLogger().log(Level.SEVERE, ERROR_MESSAGE);
+        }
+        Objects.requireNonNull(method);
+        return method;
+    }
+
+    @Nonnull
+    public static Class<?> getClass(@Nonnull String name) {
+        Class<?> clazz = null;
+        try {
+            clazz = Class.forName(name);
+        } catch (ClassNotFoundException e) {
+            EnchantmentTokens.getEnchantLogger().log(Level.SEVERE, ERROR_MESSAGE);
+        }
+        Objects.requireNonNull(clazz);
+        return clazz;
     }
 
     @Nonnull
@@ -68,7 +97,7 @@ public class ReflectionManager {
         try {
             return clazz.getDeclaredConstructor().newInstance();
         } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
-            EnchantmentTokens.getEnchantLogger().log(Level.SEVERE, "Could not instantiate class " + clazz.getSimpleName());
+            EnchantmentTokens.getEnchantLogger().log(Level.SEVERE, "Could not instantiate class {0}", clazz.getSimpleName());
         }
         throw new IllegalStateException("Could not instantiate class " + clazz.getSimpleName());
     }
@@ -78,7 +107,7 @@ public class ReflectionManager {
         try {
             return constructor.newInstance(args);
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
-            EnchantmentTokens.getEnchantLogger().log(Level.SEVERE, "Error instantiating constructor " + constructor.getName(), e);
+            EnchantmentTokens.getEnchantLogger().log(Level.SEVERE, e, () -> "Error instantiating constructor " + constructor.getName());
         }
         throw new IllegalStateException("Could not instantiate constructor " + constructor.getName());
     }

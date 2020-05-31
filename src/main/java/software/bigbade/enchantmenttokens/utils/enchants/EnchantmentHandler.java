@@ -18,6 +18,7 @@
 
 package software.bigbade.enchantmenttokens.utils.enchants;
 
+import org.bukkit.enchantments.Enchantment;
 import software.bigbade.enchantmenttokens.api.EnchantmentBase;
 
 import java.util.Collection;
@@ -50,4 +51,6 @@ public interface EnchantmentHandler {
      * Add Skript enchantment
      */
     void addSkriptEnchant(EnchantmentBase base);
+
+    boolean hasVanillaEnchant(Enchantment enchantment);
 }

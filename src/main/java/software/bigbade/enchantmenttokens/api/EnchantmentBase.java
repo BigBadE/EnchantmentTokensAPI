@@ -24,6 +24,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import software.bigbade.enchantmenttokens.api.wrappers.ITargetWrapper;
+import software.bigbade.enchantmenttokens.utils.enchants.EnchantRarity;
 
 import javax.annotation.Nonnull;
 
@@ -59,4 +60,20 @@ public interface EnchantmentBase {
     String getEnchantmentName();
 
     Integer getLevel(ItemStack item);
+
+    int getRarity();
+
+    int getMaxTableLevel();
+
+    void setRarity(EnchantRarity rarity);
+
+    boolean isCursed();
+
+    boolean isTreasure();
+
+    boolean conflictsWith(Enchantment enchantment);
+
+    int getMinCost(int level);
+
+    int getMaxCost(int level);
 }
