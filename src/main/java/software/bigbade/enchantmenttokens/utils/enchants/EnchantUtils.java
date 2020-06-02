@@ -54,7 +54,7 @@ public abstract class EnchantUtils {
 
     public abstract void removeEnchantmentBase(ItemStack item, EnchantmentBase base);
 
-    public abstract void addEnchantmentBase(ItemStack item, EnchantmentBase base, EnchantmentPlayer player, int level);
+    public abstract void addEnchantmentBase(ItemStack item, EnchantmentBase base, Player player, int level);
 
     /**
      * Get the level of the enchantment

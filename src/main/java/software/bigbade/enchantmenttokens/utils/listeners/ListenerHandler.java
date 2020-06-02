@@ -21,24 +21,13 @@ package software.bigbade.enchantmenttokens.utils.listeners;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.Plugin;
-import software.bigbade.enchantmenttokens.api.EnchantmentAddon;
 import software.bigbade.enchantmenttokens.api.EnchantmentBase;
 import software.bigbade.enchantmenttokens.api.ListenerType;
-
-import java.util.Map;
-import java.util.Set;
 
 public interface ListenerHandler {
     void registerListeners();
 
-    void loadAddon(EnchantmentAddon addons);
-
     void onEnchant(ItemStack item, EnchantmentBase base, Player player);
-
-    void loadEnchantments(Map<EnchantmentAddon, Set<Class<EnchantmentBase>>> enchants);
-
-    void loadEnchantment(Plugin plugin, Class<? extends EnchantmentBase> base);
 
     <T extends Event> ListenerManager<T> getListenerManager(ListenerType type);
 }

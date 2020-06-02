@@ -34,6 +34,7 @@ import software.bigbade.enchantmenttokens.utils.SchedulerHandler;
 import software.bigbade.enchantmenttokens.utils.SignHandler;
 import software.bigbade.enchantmenttokens.utils.enchants.EnchantUtils;
 import software.bigbade.enchantmenttokens.utils.enchants.EnchantmentHandler;
+import software.bigbade.enchantmenttokens.utils.enchants.EnchantmentLoader;
 import software.bigbade.enchantmenttokens.utils.listeners.ListenerHandler;
 import software.bigbade.enchantmenttokens.utils.players.PlayerHandler;
 
@@ -84,7 +85,9 @@ public abstract class EnchantmentTokens extends JavaPlugin {
 
     public abstract File getEnchantmentFolder();
 
-    public abstract boolean getOverridingEnchantTables();
+    public abstract boolean isOverridingEnchantTables();
+
+    public abstract EnchantmentLoader getEnchantmentLoader();
 
     @Setter
     private static TaskChainFactory taskChainFactory;
