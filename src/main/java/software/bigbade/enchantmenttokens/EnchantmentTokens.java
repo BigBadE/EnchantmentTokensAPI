@@ -18,7 +18,6 @@
 
 package software.bigbade.enchantmenttokens;
 
-import co.aikar.taskchain.BukkitTaskChainFactory;
 import co.aikar.taskchain.TaskChain;
 import co.aikar.taskchain.TaskChainFactory;
 import lombok.Getter;
@@ -28,7 +27,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import software.bigbade.enchantmenttokens.currency.CurrencyFactory;
 import software.bigbade.enchantmenttokens.gui.EnchantButton;
-import software.bigbade.enchantmenttokens.gui.MenuFactory;
+import software.bigbade.enchantmenttokens.gui.EnchantmentMenuFactory;
 import software.bigbade.enchantmenttokens.utils.ButtonFactory;
 import software.bigbade.enchantmenttokens.utils.ItemUtils;
 import software.bigbade.enchantmenttokens.utils.SchedulerHandler;
@@ -79,7 +78,7 @@ public abstract class EnchantmentTokens extends JavaPlugin {
 
     public abstract EnchantUtils getUtils();
 
-    public abstract MenuFactory getMenuFactory();
+    public abstract EnchantmentMenuFactory getMenuFactory();
 
     public abstract SchedulerHandler getScheduler();
 

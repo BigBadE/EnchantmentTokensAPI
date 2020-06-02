@@ -190,6 +190,12 @@ public class CustomEnchantment extends Enchantment implements EnchantmentBase {
         }
     }
 
+    /**
+     * Cursed enchantments cannot be removed in the grindstone
+     * @deprecated
+     * @return if the enchant is cursed.
+     */
+    @Deprecated
     @Override
     public boolean isCursed() {
         return cursed;

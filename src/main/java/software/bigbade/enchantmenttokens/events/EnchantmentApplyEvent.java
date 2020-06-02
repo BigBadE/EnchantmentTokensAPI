@@ -10,7 +10,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.bukkit.inventory.ItemStack;
-import software.bigbade.enchantmenttokens.api.EnchantmentBase;
 
 import javax.annotation.Nonnull;
 
@@ -22,8 +21,6 @@ public class EnchantmentApplyEvent extends Event {
     private final ItemStack item;
     @Getter
     private final Player player;
-    @Getter
-    private final EnchantmentBase enchantment;
 
     @Nonnull
     @Override

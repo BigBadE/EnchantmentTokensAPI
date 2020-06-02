@@ -100,12 +100,18 @@ public class LocaleManager {
 
     @Nullable
     public static ResourceBundle getBundle(Locale locale, String namespace) {
-        if(bundles.get(locale) == null) {
-            return getBundle(Locale.US, namespace);
+        List<AddonResourceBundle> addonBundle = bundles.get(locale);
+        if(addonBundle == null) {
+            if(locale != Locale.US) {
+                return getBundle(Locale.US, namespace);
+            } else {
+                return null;
+            }
         }
-        for (AddonResourceBundle bundle : bundles.get(locale)) {
-            if (bundle.getAddon().equals(namespace))
+        for (AddonResourceBundle bundle : addonBundle) {
+            if (bundle.getAddon().equals(namespace)) {
                 return bundle.getBundle();
+            }
         }
         return null;
     }

@@ -27,6 +27,8 @@ import java.util.List;
 public interface EnchantmentHandler {
     void registerEnchants(Collection<EnchantmentBase> enchantments);
 
+    void registerEnchant(EnchantmentBase base);
+
     void unregisterEnchants();
 
     /**
