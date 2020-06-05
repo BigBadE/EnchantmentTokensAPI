@@ -29,18 +29,14 @@ public class SchedulerHandler {
     }
 
     public void runTaskLater(Runnable runnable, long delay) {
-        Bukkit.getScheduler().runTaskLater(main, runnable, delay).getTaskId();
+        Bukkit.getScheduler().runTaskLater(main, runnable, delay);
     }
 
-    public int runTaskRepeating(Runnable runnable, long delay, long repeat) {
-        return Bukkit.getScheduler().runTaskTimer(main, runnable, delay, repeat).getTaskId();
+    public void runTaskRepeating(Runnable runnable, long delay, long repeat) {
+        Bukkit.getScheduler().runTaskTimer(main, runnable, delay, repeat);
     }
 
     public void runTaskAsync(Runnable runnable) {
         Bukkit.getScheduler().runTaskAsynchronously(main, runnable);
-    }
-
-    public int runTaskAsyncRepeating(Runnable runnable, long delay, long repeat) {
-        return Bukkit.getScheduler().runTaskTimerAsynchronously(main, runnable, delay, repeat).getTaskId();
     }
 }
