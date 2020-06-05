@@ -93,7 +93,7 @@ public class ReflectionManager {
     }
 
     @Nonnull
-    public static Object instantiate(@Nonnull Class<?> clazz) {
+    public static <T> T instantiate(@Nonnull Class<T> clazz) {
         try {
             return clazz.getDeclaredConstructor().newInstance();
         } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
@@ -103,7 +103,7 @@ public class ReflectionManager {
     }
 
     @Nonnull
-    public static Object instantiate(@Nonnull Constructor<?> constructor, @Nullable Object... args) {
+    public static <T> T instantiate(@Nonnull Constructor<T> constructor, @Nullable Object... args) {
         try {
             return constructor.newInstance(args);
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
@@ -112,10 +112,11 @@ public class ReflectionManager {
         throw new IllegalStateException("Could not instantiate constructor " + constructor.getName());
     }
 
+    @SuppressWarnings("unchecked")
     @Nullable
-    public static Object invoke(@Nonnull Method method, @Nullable Object instance, @Nullable Object... args) {
+    public static <T> T invoke(@Nonnull Method method, @Nullable Object instance, @Nullable Object... args) {
         try {
-            return method.invoke(instance, args);
+            return (T) method.invoke(instance, args);
         } catch (IllegalAccessException | InvocationTargetException e) {
             EnchantmentTokens.getEnchantLogger().log(Level.SEVERE, "Problem invoking method", e);
         }

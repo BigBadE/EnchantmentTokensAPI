@@ -192,6 +192,7 @@ public class CustomEnchantment extends Enchantment implements EnchantmentBase {
 
     /**
      * Cursed enchantments cannot be removed in the grindstone
+     * Spigot requires it to be overridden, yet it's deprecated. Sorry anyone who reads the maven logs.
      * @deprecated
      * @return if the enchant is cursed.
      */
