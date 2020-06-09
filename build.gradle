@@ -48,22 +48,18 @@ configurations {
 sourceSets {
     test {
         compileClasspath += configurations.resolveImplementation
-        compileClasspath += configurations.compileOnly
         runtimeClasspath += configurations.resolveImplementation
-        runtimeClasspath += configurations.compileOnly
     }
 }
 
 dependencies {
-    compileOnly 'org.spigotmc:spigot-api:1.15.2-R0.1-SNAPSHOT'
-    compileOnly 'co.aikar:taskchain-bukkit:3.7.2'
-    compileOnly 'com.google.code.findbugs:jsr305:3.0.2'
+    implementation 'org.spigotmc:spigot-api:1.15.2-R0.1-SNAPSHOT'
+    implementation 'co.aikar:taskchain-bukkit:3.7.2'
+    implementation 'com.google.code.findbugs:jsr305:3.0.2'
 
     dependencies {
-        compileOnly fileTree(dir: 'lib', include: '*.jar')
+        implementation fileTree(dir: 'lib', include: '*.jar')
     }
-
-    compileOnly 'com.codingforcookies:ArmorEquipEvent:1.7.3'
 
     testImplementation 'junit:junit:4.13'
     testImplementation 'org.mockito:mockito-core:3.3.3'

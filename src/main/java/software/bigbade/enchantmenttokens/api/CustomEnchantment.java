@@ -50,32 +50,32 @@ public class CustomEnchantment extends Enchantment implements EnchantmentBase {
     private String name;
 
     @ConfigurationField(name = "icon")
-    private String iconString = "DEFAULT";
+    private final String iconString = "DEFAULT";
 
     @Getter
     private Material icon;
 
     @Getter
     @Setter
-    @ConfigurationField
+    @ConfigurationField(name = "max-level")
     private int maxLevel = 3;
-
-
-    @Getter
-    @ConfigurationField
-    private int maxTableLevel = 3;
-
     @Getter
     @Setter
-    @ConfigurationField
+    @ConfigurationField(name = "start-level")
     private int startLevel = 1;
+
+
+    @Getter
+    @ConfigurationField(name = "max-table-level")
+    private final int maxTableLevel = 3;
+
 
     @Getter
     @ConfigurationField(name = "price")
-    private ConfigurationSection priceSection = null;
+    private final ConfigurationSection priceSection = null;
 
     @ConfigurationField(location = "price")
-    private String type = "custom";
+    private final String type = "custom";
 
     @Getter
     @ConfigurationField
