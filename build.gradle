@@ -50,8 +50,10 @@ dependencies {
     compileOnly 'com.google.code.findbugs:jsr305:3.0.2'
 
     dependencies {
-        implementation fileTree(dir: 'lib', include: '*.jar')
+        compileOnly fileTree(dir: 'lib', include: '*.jar')
     }
+
+    compileOnly 'com.codingforcookies:ArmorEquipEvent:1.7.3'
 
     testImplementation 'junit:junit:4.13'
     testImplementation 'org.mockito:mockito-core:3.3.3'
