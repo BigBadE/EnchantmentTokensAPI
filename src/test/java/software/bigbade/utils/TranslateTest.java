@@ -45,7 +45,7 @@ public class TranslateTest {
         when(ItemUtils.createItem(Material.BLACK_STAINED_GLASS_PANE, " ")).thenReturn(null);
         
         ConfigurationSection section = mock(ConfigurationSection.class);
-        when(section.get("country-language")).thenReturn("US");
+        when(section.getObject("country-language", String.class, "US")).thenReturn("US");
 
         LocaleManager.updateLocale(section, Collections.emptyList());
         Assert.assertEquals("Test", new TranslatedStringMessage(Locale.US, "test").translate());

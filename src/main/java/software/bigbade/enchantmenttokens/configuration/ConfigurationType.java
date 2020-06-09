@@ -36,15 +36,6 @@ public class ConfigurationType<T> {
     @SuppressWarnings("unchecked")
     @Nonnull
     public T getValue(@Nonnull String value, @Nonnull ConfigurationSection section) {
-        try {
-            if (!section.isSet(value)) {
-                section.set(value, defaultValue);
-                return defaultValue;
-            }
-            return (T) Objects.requireNonNull(section.get(value));
-        } catch (ClassCastException e) {
-            section.set(value, defaultValue);
-            return defaultValue;
-        }
+        return Objects.requireNonNull(section.getObject(value, (Class<T>) defaultValue.getClass(), defaultValue));
     }
 }
