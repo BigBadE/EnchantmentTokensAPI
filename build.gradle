@@ -1,12 +1,7 @@
 plugins {
-<<<<<<< HEAD
     id 'com.github.johnrengelman.shadow' version '5.2.0'
     id 'java'
-=======
->>>>>>> 8f1405c4cc0c9c86ed7c0129ba1285fd361b4706
     id 'maven-publish'
-    id 'com.github.johnrengelman.shadow' version '5.2.0'
-    id 'java'
 }
 
 repositories {
