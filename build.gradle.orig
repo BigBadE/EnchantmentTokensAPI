@@ -47,14 +47,24 @@ sourceSets {
 }
 
 dependencies {
+<<<<<<< HEAD
     implementation 'co.aikar:taskchain-bukkit:3.7.2'
+=======
+    shadow 'org.spigotmc:spigot-api:1.15.2-R0.1-SNAPSHOT'
+    shadow 'co.aikar:taskchain-bukkit:3.7.2'
+    shadow 'com.google.code.findbugs:jsr305:3.0.2'
+>>>>>>> 8f1405c4cc0c9c86ed7c0129ba1285fd361b4706
 
     dependencies {
         implementation fileTree(dir: 'lib', include: '*.jar')
     }
 
+<<<<<<< HEAD
     shadow 'com.google.code.findbugs:jsr305:3.0.2'
     shadow 'org.spigotmc:spigot-api:1.15.2-R0.1-SNAPSHOT'
+=======
+    implementation 'com.codingforcookies:ArmorEquipEvent:1.7.3'
+>>>>>>> 8f1405c4cc0c9c86ed7c0129ba1285fd361b4706
 
     testImplementation 'junit:junit:4.13'
     testImplementation 'org.mockito:mockito-core:3.3.3'
@@ -71,7 +81,10 @@ dependencies {
 shadowJar {
     classifier = ''
     relocate 'com.codingforcookies', 'software.bigbade'
+<<<<<<< HEAD
     relocate 'co.aikar', 'software.bigbade'
+=======
+>>>>>>> 8f1405c4cc0c9c86ed7c0129ba1285fd361b4706
 
     exclude 'META-INF/**'
 }
