@@ -1,4 +1,5 @@
 plugins {
+    id 'com.github.johnrengelman.shadow' version '5.2.0'
     id 'java'
     id 'maven-publish'
 }
@@ -20,23 +21,9 @@ repositories {
     maven {
         url = uri('https://repo.aikar.co/content/groups/aikar/')
     }
-}
 
-publishing {
-    repositories {
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/BigBadE/EnchantmentTokensPublic")
-            credentials {
-                username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
-                password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
-            }
-        }
-    }
-    publications {
-        gpr(MavenPublication) {
-            from(components.java)
-        }
+    flatDir {
+        dirs 'lib'
     }
 }
 
@@ -53,13 +40,14 @@ sourceSets {
 }
 
 dependencies {
-    implementation 'org.spigotmc:spigot-api:1.15.2-R0.1-SNAPSHOT'
     implementation 'co.aikar:taskchain-bukkit:3.7.2'
-    implementation 'com.google.code.findbugs:jsr305:3.0.2'
 
     dependencies {
         implementation fileTree(dir: 'lib', include: '*.jar')
     }
+
+    shadow 'com.google.code.findbugs:jsr305:3.0.2'
+    shadow 'org.spigotmc:spigot-api:1.15.2-R0.1-SNAPSHOT'
 
     testImplementation 'junit:junit:4.13'
     testImplementation 'org.mockito:mockito-core:3.3.3'
@@ -71,6 +59,14 @@ dependencies {
 
     testCompileOnly 'org.projectlombok:lombok:1.18.12'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
+}
+
+shadowJar {
+    classifier = ''
+    relocate 'com.codingforcookies', 'software.bigbade'
+    relocate 'co.aikar', 'software.bigbade'
+
+    exclude 'META-INF/**'
 }
 
 group = 'software.bigbade'
