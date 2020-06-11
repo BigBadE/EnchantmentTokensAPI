@@ -1,6 +1,7 @@
 plugins {
-    id 'java'
     id 'maven-publish'
+    id 'com.github.johnrengelman.shadow' version '5.2.0'
+    id 'java'
 }
 
 repositories {
@@ -48,29 +49,40 @@ configurations {
 sourceSets {
     test {
         compileClasspath += configurations.resolveImplementation
+        compileClasspath += configurations.shadow
         runtimeClasspath += configurations.resolveImplementation
+        runtimeClasspath += configurations.shadow
     }
 }
 
 dependencies {
-    implementation 'org.spigotmc:spigot-api:1.15.2-R0.1-SNAPSHOT'
-    implementation 'co.aikar:taskchain-bukkit:3.7.2'
-    implementation 'com.google.code.findbugs:jsr305:3.0.2'
+    shadow 'org.spigotmc:spigot-api:1.15.2-R0.1-SNAPSHOT'
+    shadow 'co.aikar:taskchain-bukkit:3.7.2'
+    shadow 'com.google.code.findbugs:jsr305:3.0.2'
 
     dependencies {
         implementation fileTree(dir: 'lib', include: '*.jar')
     }
+
+    implementation 'com.codingforcookies:ArmorEquipEvent:1.7.3'
 
     testImplementation 'junit:junit:4.13'
     testImplementation 'org.mockito:mockito-core:3.3.3'
     testImplementation 'org.powermock:powermock-module-junit4:2.0.7'
     testImplementation 'org.powermock:powermock-api-mockito2:2.0.7'
 
-    compileOnly 'org.projectlombok:lombok:1.18.12'
+    shadow 'org.projectlombok:lombok:1.18.12'
     annotationProcessor 'org.projectlombok:lombok:1.18.12'
 
     testCompileOnly 'org.projectlombok:lombok:1.18.12'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
+}
+
+shadowJar {
+    classifier = ''
+    relocate 'com.codingforcookies', 'software.bigbade'
+
+    exclude 'META-INF/**'
 }
 
 group = 'software.bigbade'

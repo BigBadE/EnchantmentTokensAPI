@@ -1,4 +1,4 @@
-EnchantmentTokens is a plugin allowing for easy addition of custom enchantments into Minecraft.
+EnchantmentTokens is a plugin allowing for easy addition of customized enchantments into Minecraft.
 
 Latest Build: 
 [![Latest Build](https://travis-ci.com/BigBadE/EnchantmentTokens.svg?branch=master)](https://travis-ci.com/BigBadE/EnchantmentTokens)
@@ -8,7 +8,7 @@ Latest Build:
 [![codecov](https://codecov.io/gh/BigBadE/EnchantmentTokens/branch/master/graph/badge.svg?token=1hsnZMVMJQ)](https://codecov.io/gh/BigBadE/EnchantmentTokens)
 
 Current features:
-- Add enchantments to items. Currently supports:
+- Add enchantments to items. Currently, it supports:
     - Armor
     - Swords
     - Bows
@@ -21,17 +21,19 @@ Current features:
 - Allows for enchantments to be bought through:
     - Command GUI
     - Signs
+    - Enchantment Table (beta)
     
-- Currently supported events:
-    - See [Events](https://raw.githubusercontent.com/wiki/BigBadE/EnchantmentTokensPublic/development/Events.md)
+- Currently, it supported events:
+    - Check the wiki
     
 - Supported Currencies:
     - Gems (custom currency)
-    - Planned:
-        - Vault
+    - Experience levels
+    - Vault
 
 - Save methods:
     - PersistentData
     - Flat files
-    - MySQL
-    - MongoDB
+    - MySQL (https://github.com/BigBadE/EnchantmentTokensMySQL)
+    - MongoDB  (https://github.com/BigBadE/EnchantmentTokensMongo)
+    - Any others can be added, feel free to use MySQL/MongoDB as an example.
