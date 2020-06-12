@@ -18,12 +18,13 @@
 
 package software.bigbade.enchantmenttokens;
 
+import co.aikar.taskchain.BukkitTaskChainFactory;
 import co.aikar.taskchain.TaskChain;
 import co.aikar.taskchain.TaskChainFactory;
 import lombok.Getter;
-import lombok.Setter;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import software.bigbade.enchantmenttokens.currency.CurrencyFactory;
 import software.bigbade.enchantmenttokens.gui.EnchantButton;
@@ -89,7 +90,6 @@ public abstract class EnchantmentTokens extends JavaPlugin {
 
     public abstract EnchantmentLoader getEnchantmentLoader();
 
-    @Setter
     private static TaskChainFactory taskChainFactory;
 
     public static <T> TaskChain<T> newChain() {
@@ -97,10 +97,11 @@ public abstract class EnchantmentTokens extends JavaPlugin {
     }
 
     //Class is loaded before the button factory is instanced, so this must be set manually
-    public static void setup() {
+    public static void setup(Plugin plugin) {
         if (emptyButton != null) {
             throw new IllegalStateException("Cannot setup an already-setup EnchantmentTokens!");
         }
         emptyButton = ButtonFactory.getInstance().createButton(glassPane, null);
+        taskChainFactory = BukkitTaskChainFactory.create(plugin);
     }
 }
