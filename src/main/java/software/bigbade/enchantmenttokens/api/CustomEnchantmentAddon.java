@@ -27,11 +27,13 @@ import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginLoader;
 import software.bigbade.enchantmenttokens.EnchantmentTokens;
+import software.bigbade.enchantmenttokens.gui.EnchantButton;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.File;
 import java.io.InputStream;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -47,6 +49,17 @@ public abstract class CustomEnchantmentAddon implements EnchantmentAddon {
         folder = main.getEnchantmentFolder();
         pluginFile = file;
         logger = new AddonLogger(this);
+    }
+
+    /**
+     * Use to add buttons to the CustomEnchantment menu
+     *
+     * @return List of buttons
+     */
+    @Nonnull
+    @Override
+    public List<EnchantButton> getButtons() {
+        return Collections.emptyList();
     }
 
     @Override

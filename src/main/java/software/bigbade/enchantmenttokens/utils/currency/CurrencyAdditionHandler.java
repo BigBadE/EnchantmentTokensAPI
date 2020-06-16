@@ -41,7 +41,7 @@ public final class CurrencyAdditionHandler {
 
     public static String formatMoney(Locale locale, long amount) {
         String priceStr = new TranslatedPriceMessage(locale).translate("%,d");
-        return String.format(Locale.getDefault(), priceStr, amount);
+        return String.format(locale, priceStr, amount);
     }
 
     public static void addGems(EnchantmentPlayer player, long amount) {

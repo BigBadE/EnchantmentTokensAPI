@@ -23,13 +23,14 @@ import software.bigbade.enchantmenttokens.currency.CurrencyHandler;
 import software.bigbade.enchantmenttokens.gui.EnchantmentGUI;
 
 import java.util.Locale;
+import java.util.concurrent.CompletableFuture;
 
 public interface EnchantmentPlayer {
-    void save(boolean async);
+    void save();
 
     Player getPlayer();
 
-    long getGems();
+    CompletableFuture<Long> getGems();
 
     void addGems(long amount);
 

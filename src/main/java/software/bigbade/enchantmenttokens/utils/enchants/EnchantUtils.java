@@ -37,12 +37,12 @@ public abstract class EnchantUtils {
 
     /**
      * Adds enchantment to item, with error messages
-     * @param item Item to enchant
-     * @param base EnchantBase to add
+     *
+     * @param item              Item to enchant
+     * @param base              EnchantBase to add
      * @param enchantmentPlayer player that holds the item
-     * @return price of the enchant
      */
-    public abstract long addEnchantmentBase(ItemStack item, EnchantmentBase base, EnchantmentPlayer enchantmentPlayer);
+    public abstract void addEnchantmentBase(ItemStack item, EnchantmentBase base, EnchantmentPlayer enchantmentPlayer);
 
 
     /**

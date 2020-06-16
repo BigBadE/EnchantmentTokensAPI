@@ -21,15 +21,21 @@ package software.bigbade.enchantmenttokens.currency;
 import org.bukkit.entity.Player;
 
 import java.util.Locale;
+import java.util.concurrent.CompletableFuture;
 
 public interface CurrencyHandler {
-    long getAmount();
+    CompletableFuture<Long> getAmount();
 
     void setAmount(long amount);
 
     void addAmount(long amount);
 
-    void savePlayer(Player player, boolean async);
+    /**
+     * Saves the player to the used saving method. Can be called off of the main thread, BE THREAD SAFE PLEASE.
+     *
+     * @param player The player to save.
+     */
+    void savePlayer(Player player);
 
     Locale getLocale();
 

@@ -96,6 +96,10 @@ public abstract class EnchantmentTokens extends JavaPlugin {
         return taskChainFactory.newChain();
     }
 
+    public static <T> TaskChain<T> newSharedChain(String name) {
+        return taskChainFactory.newSharedChain(name);
+    }
+
     //Class is loaded before the button factory is instanced, so this must be set manually
     public static void setup(Plugin plugin) {
         if (emptyButton != null) {
