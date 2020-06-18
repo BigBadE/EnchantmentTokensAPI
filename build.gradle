@@ -22,6 +22,10 @@ repositories {
         url = uri('https://repo.aikar.co/content/groups/aikar/')
     }
 
+    maven {
+        url = uri('https://oss.sonatype.org/content/groups/public/')
+    }
+
     flatDir {
         dirs 'lib'
     }
