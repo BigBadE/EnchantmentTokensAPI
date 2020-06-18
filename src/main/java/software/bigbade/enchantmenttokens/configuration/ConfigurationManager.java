@@ -105,7 +105,8 @@ public class ConfigurationManager {
      * @param target  Object target
      * @see ConfigurationField
      */
-    public static void loadConfigForField(Field field, ConfigurationSection section, Object target) {
+    @SuppressWarnings("unchecked")
+    public static <T> void loadConfigForField(Field field, ConfigurationSection section, Object target) {
         if (!field.isAnnotationPresent(ConfigurationField.class))
             return;
         field.setAccessible(true);
@@ -120,12 +121,8 @@ public class ConfigurationManager {
                 newSection = section.createSection(location);
             ReflectionManager.setValue(field, newSection, target);
         } else {
-            Object value = Objects.requireNonNull(section).get(location);
-            if (value != null && value.getClass().isAssignableFrom(field.getType())) {
-                ReflectionManager.setValue(field, value, target);
-                return;
-            }
-            section.set(location, ReflectionManager.getValue(field, target));
+            Object value = Objects.requireNonNull(section).getObject(location, (Class<T>) field.getType(), (T) ReflectionManager.getValue(field, target));
+            ReflectionManager.setValue(field, value, target);
         }
     }
 

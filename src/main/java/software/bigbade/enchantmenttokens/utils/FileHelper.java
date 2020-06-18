@@ -33,7 +33,7 @@ public class FileHelper {
         try {
             return new JarFile(path);
         } catch (IOException e) {
-            EnchantmentTokens.getEnchantLogger().log(Level.SEVERE, "Could not load jar at " + path);
+            EnchantmentTokens.getEnchantLogger().log(Level.SEVERE, "Could not load jar at {0}", path);
         }
         return null;
     }
@@ -44,7 +44,7 @@ public class FileHelper {
         try {
             return file.getInputStream(file.getJarEntry(name));
         } catch (IOException e) {
-            EnchantmentTokens.getEnchantLogger().log(Level.SEVERE, "Could not load file from jar named " + file.getName());
+            EnchantmentTokens.getEnchantLogger().log(Level.SEVERE, "Could not load file from jar named {0}", file.getName());
         }
         return null;
     }

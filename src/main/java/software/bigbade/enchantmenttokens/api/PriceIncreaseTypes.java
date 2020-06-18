@@ -31,15 +31,6 @@ public enum PriceIncreaseTypes {
         for (int i = enchant.getStartLevel(); i < enchant.getMaxLevel() + 1; i++) {
             new ConfigurationType<>(i * 10).getValue(i + "", enchant.getPriceSection());
         }
-        for (String key : enchant.getPriceSection().getKeys(true)) {
-            try {
-                if (!key.equals("type") && (Integer.parseInt(key) < enchant.getStartLevel() || Integer.parseInt(key) > enchant.getMaxLevel() + 1)) {
-                    enchant.getPriceSection().set(key, null);
-                }
-            } catch (NumberFormatException e) {
-                enchant.getPriceSection().set(key, null);
-            }
-        }
     }),
     LINEAR((level, section) -> level * new ConfigurationType<>(10).getValue(StringUtils.INCREASE, section),
             enchant ->

@@ -34,6 +34,7 @@ import software.bigbade.enchantmenttokens.utils.enchants.EnchantRarity;
 import software.bigbade.enchantmenttokens.utils.enchants.EnchantUtils;
 
 import javax.annotation.Nonnull;
+import java.util.Objects;
 import java.util.logging.Level;
 
 public class CustomEnchantment extends Enchantment implements EnchantmentBase {
@@ -107,12 +108,13 @@ public class CustomEnchantment extends Enchantment implements EnchantmentBase {
 
     public void loadConfig() {
         for (PriceIncreaseTypes types : PriceIncreaseTypes.values()) {
-            if (type.toUpperCase().replace(" ", "").equals(types.name())) {
+            if (type.equalsIgnoreCase(types.name())) {
                 types.loadConfig(this);
                 return;
             }
         }
-        priceSection.set("type", PriceIncreaseTypes.CUSTOM.name().toLowerCase());
+        Objects.requireNonNull(priceSection);
+        EnchantmentTokens.getEnchantLogger().log(Level.SEVERE, "Invalid logger type {0}", type);
         PriceIncreaseTypes.CUSTOM.loadConfig(this);
         if (!"DEFAULT".equals(iconString)) {
             Material material = Material.getMaterial(iconString);
