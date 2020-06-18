@@ -114,7 +114,7 @@ public class CustomEnchantment extends Enchantment implements EnchantmentBase {
         }
         priceSection.set("type", PriceIncreaseTypes.CUSTOM.name().toLowerCase());
         PriceIncreaseTypes.CUSTOM.loadConfig(this);
-        if(!iconString.equals("DEFAULT")) {
+        if (!"DEFAULT".equals(iconString)) {
             Material material = Material.getMaterial(iconString);
             if (material == null)
                 EnchantmentTokens.getEnchantLogger().log(Level.SEVERE, "Invalid icon name {0}", iconString);

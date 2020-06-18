@@ -24,6 +24,7 @@ import software.bigbade.enchantmenttokens.EnchantmentTokens;
 import software.bigbade.enchantmenttokens.gui.EnchantButton;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Locale;
 
@@ -43,8 +44,15 @@ public interface EnchantmentAddon extends Plugin {
 
     /**
      * All the buttons this addon adds, should be a multiple of 7.
+     *
      * @return All the buttons added by this addon. Return an empty collection instead of null.
      */
     @Nonnull
     List<EnchantButton> getButtons();
+
+    /**
+     * @return Link to the error tracker for the addon
+     */
+    @Nullable
+    String getErrorTracker();
 }

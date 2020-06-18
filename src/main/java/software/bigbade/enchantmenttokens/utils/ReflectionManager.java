@@ -97,7 +97,7 @@ public class ReflectionManager {
         try {
             return clazz.getDeclaredConstructor().newInstance();
         } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
-            EnchantmentTokens.getEnchantLogger().log(Level.SEVERE, "Could not instantiate class {0}", clazz.getSimpleName());
+            EnchantmentTokens.getEnchantLogger().log(Level.SEVERE, e, () -> "Could not instantiate class " + clazz.getSimpleName());
         }
         throw new IllegalStateException("Could not instantiate class " + clazz.getSimpleName());
     }
@@ -119,6 +119,16 @@ public class ReflectionManager {
             return (T) method.invoke(instance, args);
         } catch (IllegalAccessException | InvocationTargetException e) {
             EnchantmentTokens.getEnchantLogger().log(Level.SEVERE, "Problem invoking method", e);
+        }
+        return null;
+    }
+
+    @Nullable
+    public static <T> Constructor<T> getConstructor(Class<T> clazz, Class<?>... arguments) {
+        try {
+            return clazz.getConstructor(arguments);
+        } catch (NoSuchMethodException e) {
+            EnchantmentTokens.getEnchantLogger().log(Level.SEVERE, "Problem getting constructor", e);
         }
         return null;
     }
