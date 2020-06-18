@@ -90,6 +90,7 @@ public class StringUtils {
     public static final String COMMAND_BALANCE = "command.balance";
     public static final String COMMAND_ENCHANT_USAGE = "command.enchant.usage";
     public static final String COMMAND_ENCHANT_HELD = "command.enchant.held";
+    public static final String COMMAND_ERROR_BAD_LEVEL = "command.enchant.wrong-level";
     public static final String COMMAND_PAY_USAGE = "command.pay.usage";
     //Args: minimum payment
     public static final String COMMAND_PAY_NOT_ENOUGH = "command.pay.not-enough";

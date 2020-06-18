@@ -47,10 +47,11 @@ public abstract class EnchantUtils {
 
     /**
      * Adds enchantment to item, without error messages
+     *
      * @param item Item to enchant
      * @param base EnchantBase to add
      */
-    public abstract void addEnchantmentBaseNoMessages(ItemStack item, EnchantmentBase base, Player player);
+    public abstract void addEnchantmentBaseNoMessages(ItemStack item, EnchantmentBase base, Player player, int level);
 
     public abstract void removeEnchantmentBase(ItemStack item, EnchantmentBase base);
 

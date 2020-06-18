@@ -32,11 +32,15 @@ public class SchedulerHandler {
         Bukkit.getScheduler().runTaskLater(main, runnable, delay);
     }
 
-    public void runTaskRepeating(Runnable runnable, long delay, long repeat) {
-        Bukkit.getScheduler().runTaskTimer(main, runnable, delay, repeat);
+    public int runTaskAsyncRepeating(Runnable runnable, long delay, long repeat) {
+        return Bukkit.getScheduler().runTaskTimerAsynchronously(main, runnable, delay, repeat).getTaskId();
     }
 
     public void runTaskAsync(Runnable runnable) {
         Bukkit.getScheduler().runTaskAsynchronously(main, runnable);
+    }
+
+    public void cancel(int taskId) {
+        Bukkit.getScheduler().cancelTask(taskId);
     }
 }
