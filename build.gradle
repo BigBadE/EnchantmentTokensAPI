@@ -1,7 +1,15 @@
 plugins {
     id 'com.github.johnrengelman.shadow' version '6.0.0'
+    id 'io.franzbecker.gradle-lombok' version '4.0.0'
     id 'java'
     id 'maven-publish'
+}
+
+import io.franzbecker.gradle.lombok.task.DelombokTask
+
+lombok {
+    version = '1.18.12'
+    sha256 = ''
 }
 
 repositories {
@@ -31,8 +39,20 @@ repositories {
     }
 }
 
+task delombok(type: DelombokTask, dependsOn: compileJava) {
+    ext.outputDir = file("${buildDir}/${delombok.name}")
+    classpath += project.configurations.compileOnly
+    outputs.dir(outputDir)
+    sourceSets.main.java.srcDirs.each {
+        inputs.dir(it)
+        args(it, "-d", outputDir)
+    }
+}
+
 javadoc {
-    source = sourceSets.main.allJava
+    dependsOn delombok
+
+    source = file("${buildDir}/${delombok.name}")
     classpath = configurations.compileClasspath
 
     options {
@@ -45,10 +65,11 @@ javadoc {
 
 task javadocJar(type: Jar) {
     archiveClassifier.set('javadoc')
-    from javadoc
+    from javadoc.destinationDir
 }
 
 task sourcesJar(type: Jar) {
+    dependsOn delombok
     archiveClassifier.set('sources')
     from sourceSets.main.allSource
 }
@@ -76,8 +97,6 @@ sourceSets {
 }
 
 dependencies {
-    implementation 'co.aikar:taskchain-bukkit:3.7.2'
-
     dependencies {
         implementation fileTree(dir: 'lib', include: '*.jar')
     }
