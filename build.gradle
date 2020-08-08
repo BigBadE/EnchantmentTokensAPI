@@ -33,10 +33,6 @@ repositories {
     maven {
         url = uri('https://oss.sonatype.org/content/groups/public/')
     }
-
-    flatDir {
-        dirs 'lib'
-    }
 }
 
 task delombok(type: DelombokTask, dependsOn: compileJava) {
@@ -70,6 +66,7 @@ task javadocJar(type: Jar) {
 
 task sourcesJar(type: Jar) {
     dependsOn delombok
+
     archiveClassifier.set('sources')
     from sourceSets.main.allSource
 }
@@ -77,14 +74,6 @@ task sourcesJar(type: Jar) {
 configurations {
     resolveImplementation
     resolveImplementation.extendsFrom(implementation)
-
-    publishing {
-        publications {
-            shadow(MavenPublication) { publication ->
-                project.shadow.component(publication)
-            }
-        }
-    }
 }
 
 sourceSets {
@@ -97,9 +86,7 @@ sourceSets {
 }
 
 dependencies {
-    dependencies {
-        implementation fileTree(dir: 'lib', include: '*.jar')
-    }
+    implementation fileTree(dir: 'lib', include: '*.jar')
 
     shadow 'com.google.code.findbugs:jsr305:3.0.2'
     shadow 'org.spigotmc:spigot-api:1.15.2-R0.1-SNAPSHOT'
@@ -116,10 +103,20 @@ dependencies {
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
 }
 
+shadowJar {
+    archiveClassifier.set('')
+    baseName = 'EnchantmentTokensAPI'
+
+    relocate 'com.codingforcookies', 'software.bigbade'
+    relocate 'co.aikar', 'software.bigbade'
+
+    exclude 'META-INF/**'
+}
+
 artifacts {
     archives javadocJar
     archives sourcesJar
 }
 
 group = 'software.bigbade'
-version = '1.0'
+version = 'Alpha-1.0.0'

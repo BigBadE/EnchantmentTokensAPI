@@ -18,12 +18,14 @@
 
 package software.bigbade.enchantmenttokens.api;
 
+import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
-import software.bigbade.enchantmenttokens.currency.CurrencyHandler;
 import software.bigbade.enchantmenttokens.gui.EnchantmentGUI;
 
+import javax.annotation.Nullable;
 import java.util.Locale;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Function;
 
 public interface EnchantmentPlayer {
     void save();
@@ -33,8 +35,6 @@ public interface EnchantmentPlayer {
     CompletableFuture<Long> getGems();
 
     void addGems(long amount);
-
-    void setCurrencyHandler(CurrencyHandler handler);
 
     EnchantmentGUI getCurrentGUI();
 
@@ -46,9 +46,17 @@ public interface EnchantmentPlayer {
 
     /**
      * Adds a doubler to the user
+     *
      * @param adding the amount to add, adding 1 gives a 2x bonus, 3 goes to a 4x bonus, .5 goes to a 1.5x bonus, etc...
      */
     void addDoubler(long adding);
+
+    <T> void storeValue(NamespacedKey namespacedKey, T t);
+
+    <T> void storeValue(NamespacedKey namespacedKey, T t, Function<T, String> function);
+
+    @Nullable
+    <T> T getValue(NamespacedKey namespacedKey, Function<String, T> function);
 
     void setCurrentGUI(EnchantmentGUI currentGUI);
 

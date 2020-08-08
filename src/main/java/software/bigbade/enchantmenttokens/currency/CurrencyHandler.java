@@ -18,7 +18,8 @@
 
 package software.bigbade.enchantmenttokens.currency;
 
-import org.bukkit.entity.Player;
+import org.bukkit.NamespacedKey;
+import software.bigbade.enchantmenttokens.api.EnchantmentPlayer;
 
 import java.util.Locale;
 import java.util.concurrent.CompletableFuture;
@@ -35,7 +36,13 @@ public interface CurrencyHandler {
      *
      * @param player The player to save.
      */
-    void savePlayer(Player player);
+    void savePlayer(EnchantmentPlayer player);
+
+    void storePlayerData(NamespacedKey key, String value);
+
+    String getPlayerData(NamespacedKey key);
+
+    void removePlayerData(NamespacedKey key);
 
     Locale getLocale();
 

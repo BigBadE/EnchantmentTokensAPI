@@ -1,39 +1,34 @@
-EnchantmentTokens is a plugin allowing for easy addition of customized enchantments into Minecraft.
+This GitHub is the home of the EnchantmentTokens API
 
-Latest Build: 
-[![Latest Build](https://travis-ci.com/BigBadE/EnchantmentTokens.svg?branch=master)](https://travis-ci.com/BigBadE/EnchantmentTokens)
+[![Latest Build](https://ci.codemc.io/view/Author/job/bigbade/job/EnchantmentTokensAPI/badge/icon?style=plastic)](https://ci.codemc.io/view/Author/job/bigbade/job/EnchantmentTokensAPI/)
 
-[![BCH compliance](https://bettercodehub.com/edge/badge/BigBadE/EnchantmentTokens?branch=master)](https://bettercodehub.com/)
-[![CodeScene Code Health](https://codescene.io/projects/6865/status-badges/code-health)](https://codescene.io/projects/6865)
-[![codecov](https://codecov.io/gh/BigBadE/EnchantmentTokens/branch/master/graph/badge.svg?token=1hsnZMVMJQ)](https://codecov.io/gh/BigBadE/EnchantmentTokens)
+Contributions should (usually) not be made to this github without also contributing to the [impl](https://github.com/BigBadE/EnchantmentTokens)
 
-Current features:
-- Add enchantments to items. Currently, it supports:
-    - Armor
-    - Swords
-    - Bows
-    - Tridents
-    - Crossbows
-    - Shields
-    - Tools
-    - Fishing Rod
-    
-- Allows for enchantments to be bought through:
-    - Command GUI
-    - Signs
-    - Enchantment Table (beta)
-    
-- Currently, it supported events:
-    - Check the wiki
-    
-- Supported Currencies:
-    - Gems (custom currency)
-    - Experience levels
-    - Vault
+Check the sidebar for how to make an enchantment
 
-- Save methods:
-    - PersistentData
-    - Flat files
-    - MySQL (https://github.com/BigBadE/EnchantmentTokensMySQL)
-    - MongoDB  (https://github.com/BigBadE/EnchantmentTokensMongo)
-    - Any others can be added, feel free to use MySQL/MongoDB as an example.
+How to use with Maven:
+```
+<repositories>
+	<repository>
+	    <id>jitpack.io</id>
+	    <url>https://jitpack.io</url>
+	</repository>
+</repositories>
+
+<dependency>
+    <groupId>com.github.BigBadE</groupId>
+    <artifactId>EnchantmentTokensAPI</artifactId>
+    <version>Alpha-1.0.0</version>
+    <scope>provided</scope>
+</dependency>
+```
+Or with gradle:
+```
+repositories {
+	maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+	implementation 'com.github.BigBadE:EnchantmentTokensAPI:Alpha-1.0.0'
+}
+```
