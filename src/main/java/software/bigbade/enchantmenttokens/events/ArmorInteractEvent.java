@@ -7,6 +7,8 @@ import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.inventory.ItemStack;
 import software.bigbade.enchantmenttokens.api.ArmorType;
 
+import javax.annotation.Nonnull;
+
 public class ArmorInteractEvent extends PlayerEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
     private boolean cancel = false;
@@ -27,6 +29,7 @@ public class ArmorInteractEvent extends PlayerEvent implements Cancellable {
         return handlers;
     }
 
+    @Nonnull
     public final HandlerList getHandlers() {
         return getHandlerList();
     }

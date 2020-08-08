@@ -34,22 +34,26 @@ public class EnchantmentTargetWrapper implements ITargetWrapper {
 
     public EnchantmentTargetWrapper(String... targets) {
         this.targets = new EnchantmentTarget[targets.length];
-        for (int i = 0; i < targets.length; i++)
+        for (int i = 0; i < targets.length; i++) {
             try {
                 this.targets[i] = EnchantmentTarget.valueOf(targets[i]);
             } catch (IllegalArgumentException e) {
                 EnchantmentTokens.getEnchantLogger().log(Level.INFO, "Skipped no found enchantment group {0}", targets[i]);
             }
+        }
     }
 
     @Override
     public boolean canTarget(List<Material> materials) {
         for (EnchantmentTarget target : targets) {
-            if (target == EnchantmentTarget.ALL)
+            if (target == EnchantmentTarget.ALL) {
                 return true;
-            for (Material material : materials)
-                if (target.includes(material))
+            }
+            for (Material material : materials) {
+                if (target.includes(material)) {
                     return true;
+                }
+            }
         }
         return false;
     }
@@ -57,31 +61,38 @@ public class EnchantmentTargetWrapper implements ITargetWrapper {
     @Override
     public boolean canTarget(Material material) {
         for (EnchantmentTarget target : targets) {
-            if (target == EnchantmentTarget.ALL)
+            if (target == EnchantmentTarget.ALL) {
                 return true;
-            if (target.includes(material))
+            }
+            if (target.includes(material)) {
                 return true;
+            }
         }
         return false;
     }
 
     @Override
     public boolean canTarget(EnchantmentTarget target) {
-        if(target == EnchantmentTarget.ALL)
+        if (target == EnchantmentTarget.ALL) {
             return true;
-        for(EnchantmentTarget checkingTarget : targets)
-            if (checkingTarget == target || checkingTarget == EnchantmentTarget.ALL)
+        }
+        for (EnchantmentTarget checkingTarget : targets) {
+            if (checkingTarget == target || checkingTarget == EnchantmentTarget.ALL) {
                 return true;
+            }
+        }
         return false;
     }
 
     @Override
     public boolean canTarget(ITargetWrapper wrapper) {
         for (EnchantmentTarget target : targets) {
-            if (target == EnchantmentTarget.ALL)
+            if (target == EnchantmentTarget.ALL) {
                 return true;
-            if (wrapper.canTarget(target))
+            }
+            if (wrapper.canTarget(target)) {
                 return true;
+            }
         }
         return false;
     }

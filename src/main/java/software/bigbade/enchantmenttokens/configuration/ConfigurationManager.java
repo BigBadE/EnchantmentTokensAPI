@@ -42,7 +42,7 @@ import java.nio.file.Path;
 import java.util.Objects;
 import java.util.logging.Level;
 
-public class ConfigurationManager {
+public final class ConfigurationManager {
     //Private constructor to hide inherent public constructor
     private ConfigurationManager() {
     }

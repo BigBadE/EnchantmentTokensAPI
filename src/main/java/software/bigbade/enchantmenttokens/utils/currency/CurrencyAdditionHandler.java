@@ -33,8 +33,9 @@ public final class CurrencyAdditionHandler {
     private CurrencyAdditionHandler() {}
 
     public static void initialize(boolean usingGems, boolean usingXp) {
-        if (CurrencyAdditionHandler.usingGems != null || CurrencyAdditionHandler.usingXp != null)
+        if (CurrencyAdditionHandler.usingGems != null || CurrencyAdditionHandler.usingXp != null) {
             throw new IllegalStateException("Already initialized");
+        }
         CurrencyAdditionHandler.usingGems = usingGems;
         CurrencyAdditionHandler.usingXp = usingXp;
     }
@@ -50,14 +51,16 @@ public final class CurrencyAdditionHandler {
     }
 
     public static boolean isUsingGems() {
-        if (usingGems == null)
+        if (usingGems == null) {
             throw new IllegalStateException("Not initialized");
+        }
         return usingGems;
     }
 
     public static boolean isUsingExperience() {
-        if (usingXp == null)
+        if (usingXp == null) {
             throw new IllegalStateException("Not initialized");
+        }
         return usingXp;
     }
 }

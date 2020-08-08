@@ -34,8 +34,9 @@ public class AlgebraicCalculator {
 
     public AlgebraicCalculator(ConfigurationSection section) {
         equation = new ConfigurationType<>("x^2+2x-4").getValue("equation", section);
-        if (instance != null)
+        if (instance != null) {
             throw new IllegalStateException("Already initialized!");
+        }
         ScriptEngineManager mgr = new ScriptEngineManager();
         engine = mgr.getEngineByName("JavaScript");
         setInstance(this);

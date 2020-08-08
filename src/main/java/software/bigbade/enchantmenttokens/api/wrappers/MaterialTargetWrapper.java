@@ -28,8 +28,9 @@ public class MaterialTargetWrapper implements ITargetWrapper {
 
     public MaterialTargetWrapper(String... materials) {
         this.materials = new Material[materials.length];
-        for(int i = 0; i < materials.length; i++)
+        for (int i = 0; i < materials.length; i++) {
             this.materials[i] = Material.getMaterial(materials[i]);
+        }
     }
 
     public MaterialTargetWrapper(Material... materials) {
@@ -38,33 +39,41 @@ public class MaterialTargetWrapper implements ITargetWrapper {
 
     @Override
     public boolean canTarget(List<Material> checking) {
-        for(Material material : materials)
-            if(checking.contains(material))
+        for (Material material : materials) {
+            if (checking.contains(material)) {
                 return true;
+            }
+        }
         return false;
     }
 
     @Override
     public boolean canTarget(Material material) {
-        for(Material targetMaterial : materials)
-            if(targetMaterial == material)
+        for (Material targetMaterial : materials) {
+            if (targetMaterial == material) {
                 return true;
+            }
+        }
         return false;
     }
 
     @Override
     public boolean canTarget(EnchantmentTarget target) {
-        for(Material material : materials)
-            if(target.includes(material))
+        for (Material material : materials) {
+            if (target.includes(material)) {
                 return true;
+            }
+        }
         return false;
     }
 
     @Override
     public boolean canTarget(ITargetWrapper wrapper) {
-        for(Material material : materials)
-            if(wrapper.canTarget(material))
+        for (Material material : materials) {
+            if (wrapper.canTarget(material)) {
                 return true;
+            }
+        }
         return false;
     }
 }

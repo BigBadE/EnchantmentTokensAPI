@@ -25,9 +25,10 @@ import java.io.InputStream;
 import java.util.jar.JarFile;
 import java.util.logging.Level;
 
-public class FileHelper {
+public final class FileHelper {
     //Private constructor to hide implicit public one
-    private FileHelper() {}
+    private FileHelper() {
+    }
 
     public static JarFile getJarFile(String path) {
         try {
@@ -39,8 +40,9 @@ public class FileHelper {
     }
 
     public static InputStream getJarStream(JarFile file, String name) {
-        if(file == null)
+        if (file == null) {
             return null;
+        }
         try {
             return file.getInputStream(file.getJarEntry(name));
         } catch (IOException e) {

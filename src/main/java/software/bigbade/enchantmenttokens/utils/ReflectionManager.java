@@ -30,12 +30,14 @@ import java.lang.reflect.Method;
 import java.util.Objects;
 import java.util.logging.Level;
 
-public class ReflectionManager {
-    private ReflectionManager() {}
+public final class ReflectionManager {
+    private ReflectionManager() {
+    }
 
     public static final int VERSION = Integer.parseInt(Bukkit.getVersion().split("\\.")[1]);
 
     private static final String ERROR_MESSAGE = "Version changes with enchantments, please report this and the MC version";
+
     @Nonnull
     public static Field getField(@Nonnull Class<?> clazz, @Nonnull String name) {
         Field field = null;

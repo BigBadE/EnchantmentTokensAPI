@@ -18,7 +18,7 @@
 
 package software.bigbade.enchantmenttokens.utils;
 
-public class RomanNumeralConverter {
+public final class RomanNumeralConverter {
     private static final String[] c = {"", "C", "CC", "CCC", "CD", "D",
             "DC", "DCC", "DCCC", "CM"};
     private static final String[] x = {"", "X", "XX", "XXX", "XL", "L",
@@ -27,7 +27,8 @@ public class RomanNumeralConverter {
             "VI", "VII", "VIII", "IX"};
 
     //Private constructor to hide implicit public one
-    private RomanNumeralConverter() { }
+    private RomanNumeralConverter() {
+    }
 
     public static String getRomanNumeral(int level) {
         return c[level / 100] +

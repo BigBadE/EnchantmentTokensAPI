@@ -36,18 +36,20 @@ public class EnchantmentConflictWrapper implements IConflictWrapper {
     @SuppressWarnings("ArraysAsListWithZeroOrOneArgument")
     @Override
     public void addTarget(String addon, String name) {
-        if (conflicts.containsKey(addon))
+        if (conflicts.containsKey(addon)) {
             conflicts.get(addon).add(name);
-        else
+        } else {
             conflicts.put(addon, Arrays.asList(name));
+        }
     }
 
     @SuppressWarnings("ArraysAsListWithZeroOrOneArgument")
     @Override
     public void addTarget(Enchantment enchantment) {
-        if (conflicts.containsKey(enchantment.getKey().getNamespace()))
+        if (conflicts.containsKey(enchantment.getKey().getNamespace())) {
             conflicts.get(enchantment.getKey().getNamespace()).add(enchantment.getKey().getKey());
-        else
+        } else {
             conflicts.put(enchantment.getKey().getNamespace(), Arrays.asList(enchantment.getKey().getKey()));
+        }
     }
 }

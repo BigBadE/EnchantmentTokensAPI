@@ -30,12 +30,6 @@ public final class TranslatedPriceMessage implements ITranslatedMessage {
 
     private final Locale locale;
 
-    @Override
-    public String translate(String... args) {
-        if (args.length != 1)
-            return "INCORRECT ARGUMENTS";
-        return PRICES.get(locale).translate(args);
-    }
     public TranslatedPriceMessage(Locale locale) {
         if (PRICES.containsKey(locale)) {
             this.locale = locale;
@@ -45,19 +39,28 @@ public final class TranslatedPriceMessage implements ITranslatedMessage {
     }
 
     private static Map<Locale, ITranslatedMessage> getPriceMessages() {
-        if (CurrencyAdditionHandler.isUsingGems())
+        if (CurrencyAdditionHandler.isUsingGems()) {
             return loadLocales(StringUtils.GEMS_SYMBOL);
-        else if (CurrencyAdditionHandler.isUsingExperience())
+        } else if (CurrencyAdditionHandler.isUsingExperience()) {
             return loadLocales(StringUtils.LEVELS);
-        else
+        } else {
             return loadLocales(StringUtils.DOLLAR_SYMBOL);
+        }
     }
 
     private static Map<Locale, ITranslatedMessage> loadLocales(String message) {
         Map<Locale, ITranslatedMessage> locales = new HashMap<>();
-        for(Locale locale : LocaleManager.getSupportedLocales()) {
+        for (Locale locale : LocaleManager.getSupportedLocales()) {
             locales.put(locale, new TranslatedStringMessage(locale, message));
         }
         return locales;
+    }
+
+    @Override
+    public String translate(String... args) {
+        if (args.length != 1) {
+            return "INCORRECT ARGUMENTS";
+        }
+        return PRICES.get(locale).translate(args);
     }
 }

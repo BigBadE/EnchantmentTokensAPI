@@ -86,6 +86,7 @@ public class CustomEnchantment extends Enchantment implements EnchantmentBase {
         //Overridden by subclasses
     }
 
+    @SuppressWarnings("ConstantConditions")
     public long getDefaultPrice(int level) {
         assert priceSection != null;
         for (PriceIncreaseTypes types : PriceIncreaseTypes.values()) {
@@ -96,6 +97,7 @@ public class CustomEnchantment extends Enchantment implements EnchantmentBase {
         return PriceIncreaseTypes.CUSTOM.getPrice(level, priceSection);
     }
 
+    @SuppressWarnings("ConstantConditions")
     public void loadConfig() {
         for (PriceIncreaseTypes types : PriceIncreaseTypes.values()) {
             if (type.equalsIgnoreCase(types.name())) {

@@ -37,7 +37,7 @@ import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 
-public class LocaleManager {
+public final class LocaleManager {
     private static final Map<Locale, List<AddonResourceBundle>> bundles = new HashMap<>();
 
     @Getter
@@ -52,15 +52,17 @@ public class LocaleManager {
         try {
             for (Locale locale : supportedLocales) {
                 InputStream stream = getStream(EnchantmentTokens.NAME, locale);
-                if (stream != null)
+                if (stream != null) {
                     createOrAddLocale(locale, new AddonResourceBundle(EnchantmentTokens.NAME, new PropertyResourceBundle(stream)));
+                }
             }
 
             for (EnchantmentAddon addon : addons) {
                 for (Locale locale : addon.supportedLocales()) {
                     InputStream stream = getStream(addon.getName(), locale);
-                    if (stream != null)
+                    if (stream != null) {
                         createOrAddLocale(locale, new AddonResourceBundle(addon.getName(), new PropertyResourceBundle(stream)));
+                    }
                 }
             }
         } catch (IOException e) {
@@ -93,16 +95,17 @@ public class LocaleManager {
 
     private static InputStream getStream(String name, Locale locale) {
         InputStream languageStream = EnchantmentTokens.class.getResourceAsStream("/localization/" + name + "-" + locale.getLanguage() + "_" + locale.getCountry() + ".properties");
-        if (languageStream == null)
+        if (languageStream == null) {
             languageStream = EnchantmentTokens.class.getResourceAsStream("localization/" + EnchantmentTokens.NAME + "-en_US.properties");
+        }
         return languageStream;
     }
 
     @Nullable
     public static ResourceBundle getBundle(Locale locale, String namespace) {
         List<AddonResourceBundle> addonBundle = bundles.get(locale);
-        if(addonBundle == null) {
-            if(locale != Locale.US) {
+        if (addonBundle == null) {
+            if (locale != Locale.US) {
                 return getBundle(Locale.US, namespace);
             } else {
                 return null;

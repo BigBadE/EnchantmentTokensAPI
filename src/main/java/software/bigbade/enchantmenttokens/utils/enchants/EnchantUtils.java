@@ -27,11 +27,23 @@ public abstract class EnchantUtils {
 
     private static EnchantUtils instance;
 
+    public static EnchantUtils getInstance() {
+        return EnchantUtils.instance;
+    }
+
+    static void setInstance(EnchantUtils instance) {
+        if (instance == null) {
+            throw new IllegalStateException("Instance already set!");
+        }
+        EnchantUtils.instance = instance;
+    }
+
     /**
      * Adds enchantment with given name to item, removes gems, and sends messages.
+     *
      * @param itemStack item to enchant
-     * @param name name of the enchantment
-     * @param player who to take the gems from
+     * @param name      name of the enchantment
+     * @param player    who to take the gems from
      */
     public abstract void addEnchantment(ItemStack itemStack, String name, Player player);
 
@@ -43,7 +55,6 @@ public abstract class EnchantUtils {
      * @param enchantmentPlayer player that holds the item
      */
     public abstract void addEnchantmentBase(ItemStack item, EnchantmentBase base, EnchantmentPlayer enchantmentPlayer);
-
 
     /**
      * Adds enchantment to item, without error messages
@@ -59,21 +70,12 @@ public abstract class EnchantUtils {
 
     /**
      * Get the level of the enchantment
+     *
      * @param item Item with the enchant
      * @param base The enchant
      * @return The level
      */
     public abstract int getLevel(ItemStack item, EnchantmentBase base);
-
-    static void setInstance(EnchantUtils instance) {
-        if (instance == null)
-            throw new IllegalStateException("Instance already set!");
-        EnchantUtils.instance = instance;
-    }
-
-    public static EnchantUtils getInstance() {
-        return EnchantUtils.instance;
-    }
 
     public abstract void triggerOnEnchant(ItemStack item, EnchantmentBase base, Player player);
 }
