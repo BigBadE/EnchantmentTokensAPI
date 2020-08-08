@@ -121,13 +121,5 @@ artifacts {
     archives sourcesJar
 }
 
-shadowJar {
-    classifier = ''
-    relocate 'com.codingforcookies', 'software.bigbade'
-    relocate 'co.aikar', 'software.bigbade'
-
-    exclude 'META-INF/**'
-}
-
 group = 'software.bigbade'
 version = '1.0'
