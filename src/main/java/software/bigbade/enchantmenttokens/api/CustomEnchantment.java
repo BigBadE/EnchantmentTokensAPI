@@ -34,28 +34,31 @@ import software.bigbade.enchantmenttokens.utils.enchants.EnchantRarity;
 import software.bigbade.enchantmenttokens.utils.enchants.EnchantUtils;
 
 import javax.annotation.Nonnull;
-import java.util.Objects;
 import java.util.logging.Level;
 
 public class CustomEnchantment extends Enchantment implements EnchantmentBase {
+    private final IConflictWrapper conflicts = new EnchantmentConflictWrapper();
+    @ConfigurationField(name = "icon")
+    private final String iconString = "DEFAULT";
+    @Getter
+    @ConfigurationField(name = "max-table-level")
+    private final int maxTableLevel = 3;
+    @Getter
+    @ConfigurationField(name = "price")
+    private final ConfigurationSection priceSection = null;
+    @ConfigurationField(location = "price")
+    private final String type = "custom";
     @Getter
     @Setter
     private ITargetWrapper target;
-    private final IConflictWrapper conflicts = new EnchantmentConflictWrapper();
     @Setter
     private boolean treasure = false;
     @Setter
     private boolean cursed;
-
     @ConfigurationField
     private String name;
-
-    @ConfigurationField(name = "icon")
-    private final String iconString = "DEFAULT";
-
     @Getter
     private Material icon;
-
     @Getter
     @Setter
     @ConfigurationField(name = "max-level")
@@ -64,20 +67,6 @@ public class CustomEnchantment extends Enchantment implements EnchantmentBase {
     @Setter
     @ConfigurationField(name = "start-level")
     private int startLevel = 1;
-
-
-    @Getter
-    @ConfigurationField(name = "max-table-level")
-    private final int maxTableLevel = 3;
-
-
-    @Getter
-    @ConfigurationField(name = "price")
-    private final ConfigurationSection priceSection = null;
-
-    @ConfigurationField(location = "price")
-    private final String type = "custom";
-
     @Getter
     @ConfigurationField
     private int rarity = 1;
@@ -98,6 +87,7 @@ public class CustomEnchantment extends Enchantment implements EnchantmentBase {
     }
 
     public long getDefaultPrice(int level) {
+        assert priceSection != null;
         for (PriceIncreaseTypes types : PriceIncreaseTypes.values()) {
             if (type.toUpperCase().replace(" ", "").equals(types.name())) {
                 return types.getPrice(level, priceSection);
@@ -113,21 +103,23 @@ public class CustomEnchantment extends Enchantment implements EnchantmentBase {
                 return;
             }
         }
-        Objects.requireNonNull(priceSection);
+        assert priceSection != null;
         EnchantmentTokens.getEnchantLogger().log(Level.SEVERE, "Invalid logger type {0}", type);
         PriceIncreaseTypes.CUSTOM.loadConfig(this);
         if (!"DEFAULT".equals(iconString)) {
             Material material = Material.getMaterial(iconString);
-            if (material == null)
+            if (material == null) {
                 EnchantmentTokens.getEnchantLogger().log(Level.SEVERE, "Invalid icon name {0}", iconString);
-            else
+            } else {
                 setIcon(material);
+            }
         }
     }
 
     public void setIcon(Material icon) {
-        if (this.icon != null)
+        if (this.icon != null) {
             throw new IllegalStateException("Enchantment already has an icon!");
+        }
         this.icon = icon;
     }
 
@@ -138,7 +130,7 @@ public class CustomEnchantment extends Enchantment implements EnchantmentBase {
 
     @Override
     public void setRarity(EnchantRarity rarity) {
-        this.rarity = rarity.ordinal()+1;
+        this.rarity = rarity.ordinal() + 1;
     }
 
     @Override
@@ -147,8 +139,9 @@ public class CustomEnchantment extends Enchantment implements EnchantmentBase {
     }
 
     public void setEnchantName(String name) {
-        if (this.name != null)
+        if (this.name != null) {
             throw new IllegalStateException("Enchantment already has a name " + this.name + ", could not be set to " + name);
+        }
         this.name = name;
     }
 
@@ -175,13 +168,13 @@ public class CustomEnchantment extends Enchantment implements EnchantmentBase {
 
     @Override
     public int getMinCost(int level) {
-        return 30/getMaxLevel()*level;
+        return 30 / getMaxLevel() * level;
     }
 
     @Override
     public int getMaxCost(int level) {
         int min = this.getMinCost(level);
-        switch(rarity) {
+        switch (rarity) {
             case 1:
             case 2:
             case 3:
@@ -195,8 +188,9 @@ public class CustomEnchantment extends Enchantment implements EnchantmentBase {
     /**
      * Cursed enchantments cannot be removed in the grindstone
      * Spigot requires it to be overridden, yet it's deprecated. Sorry anyone who reads the maven logs.
-     * @deprecated
+     *
      * @return if the enchant is cursed.
+     * @deprecated
      */
     @Deprecated
     @Override
@@ -227,8 +221,9 @@ public class CustomEnchantment extends Enchantment implements EnchantmentBase {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof CustomEnchantment)
+        if (obj instanceof CustomEnchantment) {
             return hashCode() == obj.hashCode();
+        }
         return false;
     }
 

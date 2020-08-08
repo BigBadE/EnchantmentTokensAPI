@@ -36,6 +36,7 @@ import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Objects;
@@ -107,8 +108,9 @@ public class ConfigurationManager {
      */
     @SuppressWarnings("unchecked")
     public static <T> void loadConfigForField(Field field, ConfigurationSection section, Object target) {
-        if (!field.isAnnotationPresent(ConfigurationField.class))
+        if (!field.isAnnotationPresent(ConfigurationField.class)) {
             return;
+        }
         field.setAccessible(true);
         if (Modifier.isStatic(field.getModifiers())) {
             target = null;
@@ -117,11 +119,12 @@ public class ConfigurationManager {
         String location = annotation.location() + "." + ((annotation.name().equals("")) ? field.getName() : annotation.name());
         if (field.getType().equals(ConfigurationSection.class)) {
             ConfigurationSection newSection = section.getConfigurationSection(location);
-            if (newSection == null)
+            if (newSection == null) {
                 newSection = section.createSection(location);
+            }
             ReflectionManager.setValue(field, newSection, target);
         } else {
-            Object value = Objects.requireNonNull(section).getObject(location, (Class<T>) field.getType(), (T) ReflectionManager.getValue(field, target));
+            T value = new ConfigurationType<>((T) ReflectionManager.getValue(field, target)).getValue(location, section);
             ReflectionManager.setValue(field, value, target);
         }
     }
@@ -135,7 +138,7 @@ public class ConfigurationManager {
     public static void saveConfiguration(File file, FileConfiguration configuration) {
         try {
             deleteFile(file);
-            Files.write(file.toPath(), Charset.defaultCharset().encode(configuration.saveToString()).array());
+            Files.write(file.toPath(), configuration.saveToString().getBytes(StandardCharsets.UTF_8));
         } catch (IOException e) {
             EnchantmentTokens.getEnchantLogger().log(Level.SEVERE, "Could not save configuration", e);
         }
@@ -180,8 +183,9 @@ public class ConfigurationManager {
      */
     public static void createFolder(String path) {
         File data = new File(path);
-        if (!data.exists() && !data.mkdir())
+        if (!data.exists() && !data.mkdir()) {
             EnchantmentTokens.getEnchantLogger().log(Level.SEVERE, "[ERROR] Could not create folder {0}", path);
+        }
     }
 
     /**
@@ -202,8 +206,9 @@ public class ConfigurationManager {
      * @param file File instance of the folder
      */
     public static void createFolder(File file) {
-        if (!file.exists() && !file.mkdir())
+        if (!file.exists() && !file.mkdir()) {
             EnchantmentTokens.getEnchantLogger().log(Level.SEVERE, "[ERROR] Could not create folder {0}", file.getPath());
+        }
     }
 
     /**
@@ -213,8 +218,9 @@ public class ConfigurationManager {
      */
     public static void createFile(File file) {
         try {
-            if (!file.exists() && !file.createNewFile())
+            if (!file.exists() && !file.createNewFile()) {
                 EnchantmentTokens.getEnchantLogger().log(Level.SEVERE, "[ERROR] Could not create file {0}", file.getPath());
+            }
         } catch (IOException e) {
             EnchantmentTokens.getEnchantLogger().log(Level.SEVERE, "[ERROR] Could not access {0}", file.getPath());
         }
@@ -229,8 +235,9 @@ public class ConfigurationManager {
      */
     public static ConfigurationSection getSectionOrCreate(ConfigurationSection section, String subsection) {
         ConfigurationSection found = section.getConfigurationSection(subsection);
-        if (found == null)
+        if (found == null) {
             return section.createSection(subsection);
+        }
         return found;
     }
 }

@@ -21,7 +21,6 @@ package software.bigbade.enchantmenttokens.configuration;
 import org.bukkit.configuration.ConfigurationSection;
 
 import javax.annotation.Nonnull;
-import java.util.Objects;
 
 /**
  * Used for safe casting of unknown configuration types
@@ -35,7 +34,17 @@ public class ConfigurationType<T> {
 
     @SuppressWarnings("unchecked")
     @Nonnull
-    public T getValue(@Nonnull String value, @Nonnull ConfigurationSection section) {
-        return Objects.requireNonNull(section.getObject(value, (Class<T>) defaultValue.getClass(), defaultValue));
+    public T getValue(@Nonnull String location, @Nonnull ConfigurationSection section) {
+        try {
+            T value = (T) section.get(location);
+            if (value == null) {
+                section.set(location, defaultValue);
+                return defaultValue;
+            }
+            return value;
+        } catch (ClassCastException e) {
+            section.set(location, defaultValue);
+            return defaultValue;
+        }
     }
 }

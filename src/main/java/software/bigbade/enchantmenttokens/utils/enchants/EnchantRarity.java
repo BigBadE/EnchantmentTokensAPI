@@ -1,8 +1,9 @@
 package software.bigbade.enchantmenttokens.utils.enchants;
 
 public enum EnchantRarity {
-    COMMON,
-    UNCOMMON,
+    LEGENDARY,
+    VERY_RARE,
     RARE,
-    VERY_RARE
+    UNCOMMON,
+    COMMON
 }

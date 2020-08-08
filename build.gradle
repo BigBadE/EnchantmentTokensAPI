@@ -35,9 +35,15 @@ repositories {
     }
 }
 
+configurations {
+    resolveImplementation
+    resolveImplementation.extendsFrom(implementation)
+}
+
 task delombok(type: DelombokTask, dependsOn: compileJava) {
     ext.outputDir = file("${buildDir}/${delombok.name}")
-    classpath += project.configurations.compileOnly
+    classpath += project.configurations.shadow
+    classpath += project.configurations.resolveImplementation
     outputs.dir(outputDir)
     sourceSets.main.java.srcDirs.each {
         inputs.dir(it)
@@ -71,11 +77,6 @@ task sourcesJar(type: Jar) {
     from sourceSets.main.allSource
 }
 
-configurations {
-    resolveImplementation
-    resolveImplementation.extendsFrom(implementation)
-}
-
 sourceSets {
     test {
         compileClasspath += configurations.resolveImplementation
@@ -105,9 +106,8 @@ dependencies {
 
 shadowJar {
     archiveClassifier.set('')
-    baseName = 'EnchantmentTokensAPI'
+    archiveBaseName.set('EnchantmentTokensAPI')
 
-    relocate 'com.codingforcookies', 'software.bigbade'
     relocate 'co.aikar', 'software.bigbade'
 
     exclude 'META-INF/**'
