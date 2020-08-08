@@ -38,11 +38,13 @@ public class ListenerManager<T extends Event> {
     }
 
     public void callEvent(EnchantmentEvent<T> event, Enchantment base) {
-        if (event.getItem().getEnchantments().isEmpty())
+        if (event.getItem().getEnchantments().isEmpty()) {
             return;
+        }
         listeners.forEach((enchant, listener) -> {
-            if (enchant.equals(base))
+            if (enchant.equals(base)) {
                 listener.apply(event);
+            }
         });
     }
 

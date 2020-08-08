@@ -13,7 +13,7 @@ public class TypedListenerHandler {
 
     @SuppressWarnings("unchecked")
     public <T extends Event> ListenerManager<T> getManager(ListenerType type) {
-        return listenerManager.get(type);
+        return (ListenerManager<T>) listenerManager.get(type);
     }
 
     public void register(ListenerType type, ListenerManager<?> manager) {
