@@ -16,4 +16,18 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-rootProject.name = 'enchantmenttokensapi'
+package com.bigbade.enchantmenttokens.utils.enchants;
+
+import org.bukkit.plugin.Plugin;
+import com.bigbade.enchantmenttokens.api.EnchantmentAddon;
+import com.bigbade.enchantmenttokens.api.EnchantmentBase;
+
+import java.util.Set;
+
+public interface EnchantmentLoader {
+    void loadEnchantments(EnchantmentAddon addon,EnchantmentHandler handler, Set<Class<EnchantmentBase>> enchants);
+
+    void loadEnchantment(Plugin plugin, Class<? extends EnchantmentBase> base);
+
+    void loadAddon(EnchantmentAddon addons);
+}

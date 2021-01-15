@@ -16,4 +16,29 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-rootProject.name = 'enchantmenttokensapi'
+package com.bigbade.enchantmenttokens.gui;
+
+import org.bukkit.inventory.ItemStack;
+import com.bigbade.enchantmenttokens.api.EnchantmentPlayer;
+import com.bigbade.enchantmenttokens.localization.LocaleMessages;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+public interface EnchantButton extends Cloneable {
+    /**
+     * Called on item click
+     * @param player The player who clicked
+     * @return The inventory to open. Return null to close the inventory
+     */
+    @Nullable
+    EnchantmentGUI click(@Nonnull EnchantmentPlayer player);
+
+    @Nonnull
+    ItemStack getItem();
+
+    void setItem(ItemStack item);
+
+    @Nullable
+    LocaleMessages getTranslation();
+}

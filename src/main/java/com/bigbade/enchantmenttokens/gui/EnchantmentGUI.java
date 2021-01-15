@@ -16,4 +16,26 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-rootProject.name = 'enchantmenttokensapi'
+package com.bigbade.enchantmenttokens.gui;
+
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+import com.bigbade.enchantmenttokens.api.EnchantmentBase;
+
+import java.util.List;
+
+public interface EnchantmentGUI {
+    Inventory getInventory();
+
+    EnchantButton getButton(int slot);
+
+    void addButton(EnchantButton button, int slot);
+
+    ItemStack getItem();
+
+    void setItem(ItemStack item);
+
+    List<EnchantmentBase> getAddedEnchants();
+
+    void addEnchantment(EnchantmentBase base);
+}

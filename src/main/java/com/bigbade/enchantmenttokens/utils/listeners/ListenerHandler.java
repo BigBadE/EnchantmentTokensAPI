@@ -16,4 +16,18 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-rootProject.name = 'enchantmenttokensapi'
+package com.bigbade.enchantmenttokens.utils.listeners;
+
+import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
+import org.bukkit.inventory.ItemStack;
+import com.bigbade.enchantmenttokens.api.EnchantmentBase;
+import com.bigbade.enchantmenttokens.api.ListenerType;
+
+public interface ListenerHandler {
+    void registerListeners();
+
+    void onEnchant(ItemStack item, EnchantmentBase base, Player player);
+
+    <T extends Event> ListenerManager<T> getListenerManager(ListenerType type);
+}

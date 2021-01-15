@@ -16,4 +16,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-rootProject.name = 'enchantmenttokensapi'
+package com.bigbade.enchantmenttokens.events;
+
+import org.bukkit.event.Cancellable;
+import org.bukkit.event.Event;
+
+public interface CancellableEnchantmentEvent<T extends Event & Cancellable> extends Cancellable, EnchantmentEvent<T> { }

@@ -16,4 +16,23 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-rootProject.name = 'enchantmenttokensapi'
+package com.bigbade.enchantmenttokens.utils;
+
+public final class RomanNumeralConverter {
+    private static final String[] c = {"", "C", "CC", "CCC", "CD", "D",
+            "DC", "DCC", "DCCC", "CM"};
+    private static final String[] x = {"", "X", "XX", "XXX", "XL", "L",
+            "LX", "LXX", "LXXX", "XC"};
+    private static final String[] i = {"", "I", "II", "III", "IV", "V",
+            "VI", "VII", "VIII", "IX"};
+
+    //Private constructor to hide implicit public one
+    private RomanNumeralConverter() {
+    }
+
+    public static String getRomanNumeral(int level) {
+        return c[level / 100] +
+                x[(level % 100) / 10] +
+                i[level % 10];
+    }
+}

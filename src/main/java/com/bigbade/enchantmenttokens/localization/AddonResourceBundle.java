@@ -16,4 +16,17 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-rootProject.name = 'enchantmenttokensapi'
+package com.bigbade.enchantmenttokens.localization;
+
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+import java.util.ResourceBundle;
+
+@RequiredArgsConstructor
+public class AddonResourceBundle {
+    @Getter
+    private final String addon;
+    @Getter
+    private final ResourceBundle bundle;
+}

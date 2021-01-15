@@ -16,4 +16,20 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-rootProject.name = 'enchantmenttokensapi'
+package com.bigbade.enchantmenttokens.utils.players;
+
+import org.bukkit.entity.Player;
+import com.bigbade.enchantmenttokens.api.EnchantmentPlayer;
+import com.bigbade.enchantmenttokens.utils.SchedulerHandler;
+
+public interface PlayerHandler {
+    EnchantmentPlayer loadPlayer(Player player);
+
+    EnchantmentPlayer getPlayer(Player player);
+
+    void removePlayer(EnchantmentPlayer player);
+
+    void autosave(SchedulerHandler handler);
+
+    void shutdown();
+}

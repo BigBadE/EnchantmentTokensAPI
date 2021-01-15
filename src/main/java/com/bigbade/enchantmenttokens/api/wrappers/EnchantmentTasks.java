@@ -16,4 +16,26 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-rootProject.name = 'enchantmenttokensapi'
+package com.bigbade.enchantmenttokens.api.wrappers;
+
+import co.aikar.taskchain.TaskChainTasks;
+
+public class EnchantmentTasks {
+    @FunctionalInterface
+    public interface EnchantmentTask extends TaskChainTasks.GenericTask {
+        @Override
+        void runGeneric();
+    }
+
+    @FunctionalInterface
+    public interface FirstEnchantmentTask<T> extends TaskChainTasks.FirstTask<T> {
+        @Override
+        T run();
+    }
+
+    @FunctionalInterface
+    public interface LastEnchantmentTask<T> extends TaskChainTasks.LastTask<T> {
+        @Override
+        void runLast(T t);
+    }
+}

@@ -16,4 +16,12 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-rootProject.name = 'enchantmenttokensapi'
+package com.bigbade.enchantmenttokens.utils.enchants;
+
+public enum EnchantRarity {
+    LEGENDARY,
+    VERY_RARE,
+    RARE,
+    UNCOMMON,
+    COMMON
+}

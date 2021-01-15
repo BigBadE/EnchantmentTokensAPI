@@ -16,4 +16,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-rootProject.name = 'enchantmenttokensapi'
+package com.bigbade.enchantmenttokens.api.wrappers;
+
+import org.bukkit.enchantments.Enchantment;
+
+public interface IConflictWrapper {
+    boolean conflicts(Enchantment enchantment);
+
+    void addTarget(String addon, String name);
+
+    void addTarget(Enchantment enchantment);
+}

@@ -16,4 +16,11 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-rootProject.name = 'enchantmenttokensapi'
+package com.bigbade.enchantmenttokens.utils.listeners;
+
+import com.bigbade.enchantmenttokens.events.EnchantmentEvent;
+
+@FunctionalInterface
+public interface EnchantmentListener<T extends EnchantmentEvent<?>> {
+    void apply(T event);
+}

@@ -16,4 +16,16 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-rootProject.name = 'enchantmenttokensapi'
+package com.bigbade.enchantmenttokens.currency;
+
+import org.bukkit.entity.Player;
+
+public interface CurrencyFactory {
+    CurrencyHandler newInstance(Player player);
+
+    String name();
+
+    void shutdown();
+
+    boolean loaded();
+}

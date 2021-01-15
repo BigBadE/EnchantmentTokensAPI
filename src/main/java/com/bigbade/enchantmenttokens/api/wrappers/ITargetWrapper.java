@@ -16,4 +16,19 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-rootProject.name = 'enchantmenttokensapi'
+package com.bigbade.enchantmenttokens.api.wrappers;
+
+import org.bukkit.Material;
+import org.bukkit.enchantments.EnchantmentTarget;
+
+import java.util.List;
+
+public interface ITargetWrapper {
+    boolean canTarget(List<Material> materials);
+
+    boolean canTarget(Material material);
+
+    boolean canTarget(EnchantmentTarget target);
+
+    boolean canTarget(ITargetWrapper wrapper);
+}

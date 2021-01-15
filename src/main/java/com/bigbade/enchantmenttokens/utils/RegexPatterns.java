@@ -16,4 +16,16 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-rootProject.name = 'enchantmenttokensapi'
+package com.bigbade.enchantmenttokens.utils;
+
+import java.util.regex.Pattern;
+
+public final class RegexPatterns {
+    public static final Pattern X_PATTERN = Pattern.compile("x");
+    public static final Pattern SPACE_PATTERN = Pattern.compile(" ");
+    public static final Pattern DIVIDER_PATTERN = Pattern.compile("/");
+    public static final Pattern UNDERSCORE_PATTERN = Pattern.compile("_");
+    public static final Pattern PLACEHOLDER_PATTERN = Pattern.compile("%s");
+
+    private RegexPatterns() {}
+}

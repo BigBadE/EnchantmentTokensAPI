@@ -16,4 +16,16 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-rootProject.name = 'enchantmenttokensapi'
+package com.bigbade.enchantmenttokens.utils;
+
+import org.bukkit.Location;
+
+import java.util.Set;
+
+public interface SignHandler {
+    Set<Location> getSigns();
+
+    void addSign(Location sign);
+
+    void removeSign(Location sign);
+}
